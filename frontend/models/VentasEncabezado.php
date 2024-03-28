@@ -17,7 +17,7 @@ use Yii;
  * @property Pagos[] $pagos
  * @property Ventasdetalle[] $ventasdetalles
  */
-class VentasEncabezado extends \yii\db\ActiveRecord
+class Ventasencabezado extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
