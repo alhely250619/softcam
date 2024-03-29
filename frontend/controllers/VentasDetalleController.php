@@ -50,13 +50,14 @@ class VentasDetalleController extends Controller
     /**
      * Displays a single VentasDetalle model.
      * @param int $Id ID
+     * @param int $Tallas_Id Tallas ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($Id)
+    public function actionView($Id, $Tallas_Id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($Id),
+            'model' => $this->findModel($Id, $Tallas_Id),
         ]);
     }
 
@@ -71,7 +72,7 @@ class VentasDetalleController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'Id' => $model->Id]);
+                return $this->redirect(['view', 'Id' => $model->Id, 'Tallas_Id' => $model->Tallas_Id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -86,15 +87,16 @@ class VentasDetalleController extends Controller
      * Updates an existing VentasDetalle model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $Id ID
+     * @param int $Tallas_Id Tallas ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($Id)
+    public function actionUpdate($Id, $Tallas_Id)
     {
-        $model = $this->findModel($Id);
+        $model = $this->findModel($Id, $Tallas_Id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'Id' => $model->Id]);
+            return $this->redirect(['view', 'Id' => $model->Id, 'Tallas_Id' => $model->Tallas_Id]);
         }
 
         return $this->render('update', [
@@ -106,12 +108,13 @@ class VentasDetalleController extends Controller
      * Deletes an existing VentasDetalle model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $Id ID
+     * @param int $Tallas_Id Tallas ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($Id)
+    public function actionDelete($Id, $Tallas_Id)
     {
-        $this->findModel($Id)->delete();
+        $this->findModel($Id, $Tallas_Id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -120,12 +123,13 @@ class VentasDetalleController extends Controller
      * Finds the VentasDetalle model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $Id ID
+     * @param int $Tallas_Id Tallas ID
      * @return VentasDetalle the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($Id)
+    protected function findModel($Id, $Tallas_Id)
     {
-        if (($model = VentasDetalle::findOne(['Id' => $Id])) !== null) {
+        if (($model = VentasDetalle::findOne(['Id' => $Id, 'Tallas_Id' => $Tallas_Id])) !== null) {
             return $model;
         }
 

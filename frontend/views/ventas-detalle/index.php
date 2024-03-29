@@ -35,10 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'Total',
             'VentasEncabezado_Id',
             //'Productos_id',
+            //'Tallas_Id',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, VentasDetalle $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'Id' => $model->Id]);
+                    return Url::toRoute([$action, 'Id' => $model->Id, 'Tallas_Id' => $model->Tallas_Id]);
                  }
             ],
         ],

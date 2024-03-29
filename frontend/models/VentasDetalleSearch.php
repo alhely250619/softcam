@@ -17,7 +17,7 @@ class VentasDetalleSearch extends VentasDetalle
     public function rules()
     {
         return [
-            [['Id', 'Cantidad', 'VentasEncabezado_Id', 'Productos_id'], 'integer'],
+            [['Id', 'Cantidad', 'VentasEncabezado_Id', 'Productos_id', 'Tallas_Id'], 'integer'],
             [['PrecioProducto', 'Total'], 'number'],
         ];
     }
@@ -64,6 +64,7 @@ class VentasDetalleSearch extends VentasDetalle
             'Total' => $this->Total,
             'VentasEncabezado_Id' => $this->VentasEncabezado_Id,
             'Productos_id' => $this->Productos_id,
+            'Tallas_Id' => $this->Tallas_Id,
         ]);
 
         return $dataProvider;

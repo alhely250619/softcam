@@ -38,6 +38,12 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Productos', 'url' => ['/productos/index']],
+        ['label' => 'Venta Encabezado', 'url' => ['/ventas-encabezado/index']],
+        ['label' => 'Venta Detalle', 'url' => ['/ventas-detalle/index']],
+        ['label' => 'Pagos', 'url' => ['/pagos/index']],
+        ['label' => 'Alumnos', 'url' => ['/alumnos/index']],
+        ['label' => 'Tallas', 'url' => ['/tallas/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
