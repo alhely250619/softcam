@@ -1,15 +1,15 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Pagos;
+use app\models\Conceptos;
 
 /**
- * PagosSearch represents the model behind the search form of `app\models\Pagos`.
+ * ConceptosSearch represents the model behind the search form of `app\models\Conceptos`.
  */
-class PagosSearch extends Pagos
+class ConceptosSearch extends Conceptos
 {
     /**
      * {@inheritdoc}
@@ -17,9 +17,8 @@ class PagosSearch extends Pagos
     public function rules()
     {
         return [
-            [['Id', 'VentasEncabezado_Id'], 'integer'],
-            [['Concepto', 'MetodoPago'], 'safe'],
-            [['Monto'], 'number'],
+            [['Id'], 'integer'],
+            [['Nombre'], 'safe'],
         ];
     }
 
@@ -41,7 +40,7 @@ class PagosSearch extends Pagos
      */
     public function search($params)
     {
-        $query = Pagos::find();
+        $query = Conceptos::find();
 
         // add conditions that should always apply here
 
@@ -60,12 +59,9 @@ class PagosSearch extends Pagos
         // grid filtering conditions
         $query->andFilterWhere([
             'Id' => $this->Id,
-            'Monto' => $this->Monto,
-            'VentasEncabezado_Id' => $this->VentasEncabezado_Id,
         ]);
 
-        $query->andFilterWhere(['like', 'Concepto', $this->Concepto])
-            ->andFilterWhere(['like', 'MetodoPago', $this->MetodoPago]);
+        $query->andFilterWhere(['like', 'Nombre', $this->Nombre]);
 
         return $dataProvider;
     }

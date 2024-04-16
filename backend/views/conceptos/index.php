@@ -1,24 +1,24 @@
 <?php
 
-use app\models\Pagos;
+use app\models\Conceptos;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var app\models\PagosSearch $searchModel */
+/** @var backend\models\ConceptosSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Pagos';
+$this->title = 'Conceptos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pagos-index">
+<div class="conceptos-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Pagos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Conceptos', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -30,13 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'Id',
-            'Concepto',
-            'Monto',
-            'MetodoPago',
-            'VentasEncabezado_Id',
+            'Nombre',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Pagos $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Conceptos $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'Id' => $model->Id]);
                  }
             ],

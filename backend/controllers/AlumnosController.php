@@ -1,17 +1,17 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
-use app\models\Pagos;
-use app\models\PagosSearch;
+use app\models\Alumnos;
+use app\models\AlumnosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PagosController implements the CRUD actions for Pagos model.
+ * AlumnosController implements the CRUD actions for Alumnos model.
  */
-class PagosController extends Controller
+class AlumnosController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class PagosController extends Controller
     }
 
     /**
-     * Lists all Pagos models.
+     * Lists all Alumnos models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new PagosSearch();
+        $searchModel = new AlumnosSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +48,7 @@ class PagosController extends Controller
     }
 
     /**
-     * Displays a single Pagos model.
+     * Displays a single Alumnos model.
      * @param int $Id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,13 +61,13 @@ class PagosController extends Controller
     }
 
     /**
-     * Creates a new Pagos model.
+     * Creates a new Alumnos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Pagos();
+        $model = new Alumnos();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -83,7 +83,7 @@ class PagosController extends Controller
     }
 
     /**
-     * Updates an existing Pagos model.
+     * Updates an existing Alumnos model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $Id ID
      * @return string|\yii\web\Response
@@ -103,7 +103,7 @@ class PagosController extends Controller
     }
 
     /**
-     * Deletes an existing Pagos model.
+     * Deletes an existing Alumnos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $Id ID
      * @return \yii\web\Response
@@ -117,15 +117,15 @@ class PagosController extends Controller
     }
 
     /**
-     * Finds the Pagos model based on its primary key value.
+     * Finds the Alumnos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $Id ID
-     * @return Pagos the loaded model
+     * @return Alumnos the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($Id)
     {
-        if (($model = Pagos::findOne(['Id' => $Id])) !== null) {
+        if (($model = Alumnos::findOne(['Id' => $Id])) !== null) {
             return $model;
         }
 

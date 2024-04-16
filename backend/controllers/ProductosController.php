@@ -1,17 +1,17 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
-use app\models\VentasEncabezado;
-use app\models\VentasEncabezadoSearch;
+use app\models\Productos;
+use app\models\ProductosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VentasEncabezadoController implements the CRUD actions for VentasEncabezado model.
+ * ProductosController implements the CRUD actions for Productos model.
  */
-class VentasEncabezadoController extends Controller
+class ProductosController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class VentasEncabezadoController extends Controller
     }
 
     /**
-     * Lists all VentasEncabezado models.
+     * Lists all Productos models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new VentasEncabezadoSearch();
+        $searchModel = new ProductosSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +48,7 @@ class VentasEncabezadoController extends Controller
     }
 
     /**
-     * Displays a single VentasEncabezado model.
+     * Displays a single Productos model.
      * @param int $Id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,13 +61,13 @@ class VentasEncabezadoController extends Controller
     }
 
     /**
-     * Creates a new VentasEncabezado model.
+     * Creates a new Productos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new VentasEncabezado();
+        $model = new Productos();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -83,7 +83,7 @@ class VentasEncabezadoController extends Controller
     }
 
     /**
-     * Updates an existing VentasEncabezado model.
+     * Updates an existing Productos model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $Id ID
      * @return string|\yii\web\Response
@@ -103,7 +103,7 @@ class VentasEncabezadoController extends Controller
     }
 
     /**
-     * Deletes an existing VentasEncabezado model.
+     * Deletes an existing Productos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $Id ID
      * @return \yii\web\Response
@@ -117,15 +117,15 @@ class VentasEncabezadoController extends Controller
     }
 
     /**
-     * Finds the VentasEncabezado model based on its primary key value.
+     * Finds the Productos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $Id ID
-     * @return VentasEncabezado the loaded model
+     * @return Productos the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($Id)
     {
-        if (($model = VentasEncabezado::findOne(['Id' => $Id])) !== null) {
+        if (($model = Productos::findOne(['Id' => $Id])) !== null) {
             return $model;
         }
 

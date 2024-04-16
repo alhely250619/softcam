@@ -36,10 +36,20 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'About', 'url' => ['/site/about']],
+        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Productos', 'url' => ['/productos/index']],
+        ['label' => 'Venta Encabezado', 'url' => ['/ventas-encabezado/index']],
+        ['label' => 'Venta Detalle', 'url' => ['/ventas-detalle/index']],
+        ['label' => 'Pagos', 'url' => ['/pagos/index']],
+        ['label' => 'Alumnos', 'url' => ['/alumnos/index']],
+        ['label' => 'Tallas', 'url' => ['/tallas/index']],
+        ['label' => 'Conceptos de pago', 'url' => ['/conceptos/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    }     
+        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+    }
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
         'items' => $menuItems,

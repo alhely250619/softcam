@@ -1,17 +1,17 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
-use app\models\Tallas;
-use app\models\TallasSearch;
+use app\models\Pagos;
+use backend\models\PagosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TallasController implements the CRUD actions for Tallas model.
+ * PagosController implements the CRUD actions for Pagos model.
  */
-class TallasController extends Controller
+class PagosController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class TallasController extends Controller
     }
 
     /**
-     * Lists all Tallas models.
+     * Lists all Pagos models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new TallasSearch();
+        $searchModel = new PagosSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +48,7 @@ class TallasController extends Controller
     }
 
     /**
-     * Displays a single Tallas model.
+     * Displays a single Pagos model.
      * @param int $Id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,13 +61,13 @@ class TallasController extends Controller
     }
 
     /**
-     * Creates a new Tallas model.
+     * Creates a new Pagos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Tallas();
+        $model = new Pagos();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -83,7 +83,7 @@ class TallasController extends Controller
     }
 
     /**
-     * Updates an existing Tallas model.
+     * Updates an existing Pagos model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $Id ID
      * @return string|\yii\web\Response
@@ -103,7 +103,7 @@ class TallasController extends Controller
     }
 
     /**
-     * Deletes an existing Tallas model.
+     * Deletes an existing Pagos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $Id ID
      * @return \yii\web\Response
@@ -117,15 +117,15 @@ class TallasController extends Controller
     }
 
     /**
-     * Finds the Tallas model based on its primary key value.
+     * Finds the Pagos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $Id ID
-     * @return Tallas the loaded model
+     * @return Pagos the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($Id)
     {
-        if (($model = Tallas::findOne(['Id' => $Id])) !== null) {
+        if (($model = Pagos::findOne(['Id' => $Id])) !== null) {
             return $model;
         }
 

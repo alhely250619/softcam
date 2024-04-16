@@ -8,11 +8,12 @@ use Yii;
  * This is the model class for table "pagos".
  *
  * @property int $Id
- * @property string $Concepto
  * @property float $Monto
  * @property string $MetodoPago
  * @property int $VentasEncabezado_Id
+ * @property int $Conceptos_Id
  *
+ * @property Conceptos $conceptos
  * @property Ventasencabezado $ventasEncabezado
  */
 class Pagos extends \yii\db\ActiveRecord
@@ -31,11 +32,11 @@ class Pagos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Concepto', 'Monto', 'MetodoPago', 'VentasEncabezado_Id'], 'required'],
+            [['Monto', 'MetodoPago', 'VentasEncabezado_Id', 'Conceptos_Id'], 'required'],
             [['Monto'], 'number'],
-            [['VentasEncabezado_Id'], 'integer'],
-            [['Concepto'], 'string', 'max' => 50],
+            [['VentasEncabezado_Id', 'Conceptos_Id'], 'integer'],
             [['MetodoPago'], 'string', 'max' => 15],
+            [['Conceptos_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Conceptos::class, 'targetAttribute' => ['Conceptos_Id' => 'Id']],
             [['VentasEncabezado_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Ventasencabezado::class, 'targetAttribute' => ['VentasEncabezado_Id' => 'Id']],
         ];
     }
@@ -47,11 +48,21 @@ class Pagos extends \yii\db\ActiveRecord
     {
         return [
             'Id' => 'ID',
-            'Concepto' => 'Concepto',
             'Monto' => 'Monto',
             'MetodoPago' => 'Metodo Pago',
             'VentasEncabezado_Id' => 'Ventas Encabezado ID',
+            'Conceptos_Id' => 'Conceptos ID',
         ];
+    }
+
+    /**
+     * Gets query for [[Conceptos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getConceptos()
+    {
+        return $this->hasOne(Conceptos::class, ['Id' => 'Conceptos_Id']);
     }
 
     /**

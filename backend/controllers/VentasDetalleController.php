@@ -1,17 +1,17 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
-use app\models\Alumnos;
-use app\models\AlumnosSearch;
+use app\models\VentasDetalle;
+use app\models\VentasDetalleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AlumnosController implements the CRUD actions for Alumnos model.
+ * VentasDetalleController implements the CRUD actions for VentasDetalle model.
  */
-class AlumnosController extends Controller
+class VentasDetalleController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class AlumnosController extends Controller
     }
 
     /**
-     * Lists all Alumnos models.
+     * Lists all VentasDetalle models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new AlumnosSearch();
+        $searchModel = new VentasDetalleSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,30 +48,31 @@ class AlumnosController extends Controller
     }
 
     /**
-     * Displays a single Alumnos model.
+     * Displays a single VentasDetalle model.
      * @param int $Id ID
+     * @param int $Tallas_Id Tallas ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($Id)
+    public function actionView($Id, $Tallas_Id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($Id),
+            'model' => $this->findModel($Id, $Tallas_Id),
         ]);
     }
 
     /**
-     * Creates a new Alumnos model.
+     * Creates a new VentasDetalle model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Alumnos();
+        $model = new VentasDetalle();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'Id' => $model->Id]);
+                return $this->redirect(['view', 'Id' => $model->Id, 'Tallas_Id' => $model->Tallas_Id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -83,18 +84,19 @@ class AlumnosController extends Controller
     }
 
     /**
-     * Updates an existing Alumnos model.
+     * Updates an existing VentasDetalle model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $Id ID
+     * @param int $Tallas_Id Tallas ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($Id)
+    public function actionUpdate($Id, $Tallas_Id)
     {
-        $model = $this->findModel($Id);
+        $model = $this->findModel($Id, $Tallas_Id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'Id' => $model->Id]);
+            return $this->redirect(['view', 'Id' => $model->Id, 'Tallas_Id' => $model->Tallas_Id]);
         }
 
         return $this->render('update', [
@@ -103,29 +105,31 @@ class AlumnosController extends Controller
     }
 
     /**
-     * Deletes an existing Alumnos model.
+     * Deletes an existing VentasDetalle model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $Id ID
+     * @param int $Tallas_Id Tallas ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($Id)
+    public function actionDelete($Id, $Tallas_Id)
     {
-        $this->findModel($Id)->delete();
+        $this->findModel($Id, $Tallas_Id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Alumnos model based on its primary key value.
+     * Finds the VentasDetalle model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $Id ID
-     * @return Alumnos the loaded model
+     * @param int $Tallas_Id Tallas ID
+     * @return VentasDetalle the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($Id)
+    protected function findModel($Id, $Tallas_Id)
     {
-        if (($model = Alumnos::findOne(['Id' => $Id])) !== null) {
+        if (($model = VentasDetalle::findOne(['Id' => $Id, 'Tallas_Id' => $Tallas_Id])) !== null) {
             return $model;
         }
 
