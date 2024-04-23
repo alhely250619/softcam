@@ -31,9 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'Id',
             'Monto',
-            'MetodoPago',
             'VentasEncabezado_Id',
             'Conceptos_Id',
+            'FechaHora_creación',
+            'MetodoPago_Id',
         ],
     ]) ?>
 

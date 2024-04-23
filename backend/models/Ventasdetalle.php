@@ -9,14 +9,11 @@ use Yii;
  *
  * @property int $Id
  * @property int $Cantidad
- * @property float $PrecioProducto
- * @property float $Total
+ * @property float $Subtotal
  * @property int $VentasEncabezado_Id
  * @property int $Productos_id
- * @property int $Tallas_Id
  *
  * @property Productos $productos
- * @property Tallas $tallas
  * @property Ventasencabezado $ventasEncabezado
  */
 class Ventasdetalle extends \yii\db\ActiveRecord
@@ -35,11 +32,10 @@ class Ventasdetalle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Cantidad', 'PrecioProducto', 'Total', 'VentasEncabezado_Id', 'Productos_id', 'Tallas_Id'], 'required'],
-            [['Cantidad', 'VentasEncabezado_Id', 'Productos_id', 'Tallas_Id'], 'integer'],
-            [['PrecioProducto', 'Total'], 'number'],
+            [['Cantidad', 'Subtotal', 'VentasEncabezado_Id', 'Productos_id'], 'required'],
+            [['Cantidad', 'VentasEncabezado_Id', 'Productos_id'], 'integer'],
+            [['Subtotal'], 'number'],
             [['Productos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Productos::class, 'targetAttribute' => ['Productos_id' => 'Id']],
-            [['Tallas_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Tallas::class, 'targetAttribute' => ['Tallas_Id' => 'Id']],
             [['VentasEncabezado_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Ventasencabezado::class, 'targetAttribute' => ['VentasEncabezado_Id' => 'Id']],
         ];
     }
@@ -52,11 +48,9 @@ class Ventasdetalle extends \yii\db\ActiveRecord
         return [
             'Id' => 'ID',
             'Cantidad' => 'Cantidad',
-            'PrecioProducto' => 'Precio Producto',
-            'Total' => 'Total',
+            'Subtotal' => 'Subtotal',
             'VentasEncabezado_Id' => 'Ventas Encabezado ID',
             'Productos_id' => 'Productos ID',
-            'Tallas_Id' => 'Tallas ID',
         ];
     }
 
@@ -68,16 +62,6 @@ class Ventasdetalle extends \yii\db\ActiveRecord
     public function getProductos()
     {
         return $this->hasOne(Productos::class, ['Id' => 'Productos_id']);
-    }
-
-    /**
-     * Gets query for [[Tallas]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTallas()
-    {
-        return $this->hasOne(Tallas::class, ['Id' => 'Tallas_Id']);
     }
 
     /**

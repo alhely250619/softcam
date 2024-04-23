@@ -5,21 +5,21 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "tallas".
+ * This is the model class for table "metodopago".
  *
  * @property int $Id
  * @property string $Nombre
  *
- * @property Productos[] $productos
+ * @property Pagos[] $pagos
  */
-class Tallas extends \yii\db\ActiveRecord
+class Metodopago extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'tallas';
+        return 'metodopago';
     }
 
     /**
@@ -29,7 +29,7 @@ class Tallas extends \yii\db\ActiveRecord
     {
         return [
             [['Nombre'], 'required'],
-            [['Nombre'], 'string', 'max' => 4],
+            [['Nombre'], 'string', 'max' => 45],
         ];
     }
 
@@ -45,12 +45,12 @@ class Tallas extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Productos]].
+     * Gets query for [[Pagos]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProductos()
+    public function getPagos()
     {
-        return $this->hasMany(Productos::class, ['Tallas_Id' => 'Id']);
+        return $this->hasMany(Pagos::class, ['MetodoPago_Id' => 'Id']);
     }
 }

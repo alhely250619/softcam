@@ -31,9 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'Id',
             'Monto',
-            'MetodoPago',
             'VentasEncabezado_Id',
             'Conceptos_Id',
+            'FechaHora_creación',
+            //'MetodoPago_Id',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Pagos $model, $key, $index, $column) {

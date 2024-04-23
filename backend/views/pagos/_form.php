@@ -14,7 +14,7 @@ use yii\helpers\Json;
 $query = (new Query())
 ->select(['conceptos.id', 'conceptos.nombre']) // La lista de columnas se pasa como un array
 ->from('pagos')
-->join('INNER JOIN', 'conceptos', 'conceptos.id = pagos.conceptos_id'); 
+->join('RIGHT JOIN', 'conceptos', 'conceptos.id = pagos.conceptos_id'); 
 
 
 // Ejecutar la consulta y obtener los datos
@@ -34,11 +34,13 @@ foreach ($data as $d) {
 
     <?= $form->field($model, 'Monto')->textInput() ?>
 
-    <?= $form->field($model, 'MetodoPago')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'VentasEncabezado_Id')->textInput() ?>
 
-    <?= $form->field($model, 'Conceptos_Id')->dropDownList($out) ?>
+    <?= $form->field($model, 'Conceptos_Id')->textInput() ?>
+
+    <?= $form->field($model, 'FechaHora_creación')->textInput() ?>
+
+    <?= $form->field($model, 'MetodoPago_Id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

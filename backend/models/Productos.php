@@ -11,7 +11,11 @@ use Yii;
  * @property string $Nombre
  * @property float $Precio
  * @property string $Genero
+ * @property int $Tallas_Id
+ * @property int $CategoriaProductos_Id
  *
+ * @property Categoriaproductos $categoriaProductos
+ * @property Tallas $tallas
  * @property Ventasdetalle[] $ventasdetalles
  */
 class Productos extends \yii\db\ActiveRecord
@@ -30,10 +34,13 @@ class Productos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Nombre', 'Precio', 'Genero'], 'required'],
+            [['Nombre', 'Precio', 'Genero', 'Tallas_Id', 'CategoriaProductos_Id'], 'required'],
             [['Precio'], 'number'],
+            [['Tallas_Id', 'CategoriaProductos_Id'], 'integer'],
             [['Nombre'], 'string', 'max' => 45],
             [['Genero'], 'string', 'max' => 1],
+            [['CategoriaProductos_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Categoriaproductos::class, 'targetAttribute' => ['CategoriaProductos_Id' => 'Id']],
+            [['Tallas_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Tallas::class, 'targetAttribute' => ['Tallas_Id' => 'Id']],
         ];
     }
 
@@ -47,7 +54,29 @@ class Productos extends \yii\db\ActiveRecord
             'Nombre' => 'Nombre',
             'Precio' => 'Precio',
             'Genero' => 'Genero',
+            'Tallas_Id' => 'Tallas ID',
+            'CategoriaProductos_Id' => 'Categoria Productos ID',
         ];
+    }
+
+    /**
+     * Gets query for [[CategoriaProductos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategoriaProductos()
+    {
+        return $this->hasOne(Categoriaproductos::class, ['Id' => 'CategoriaProductos_Id']);
+    }
+
+    /**
+     * Gets query for [[Tallas]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTallas()
+    {
+        return $this->hasOne(Tallas::class, ['Id' => 'Tallas_Id']);
     }
 
     /**

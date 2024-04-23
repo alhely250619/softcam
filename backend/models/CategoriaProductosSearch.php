@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Tallas;
+use app\models\CategoriaProductos;
 
 /**
- * TallasSearch represents the model behind the search form of `app\models\Tallas`.
+ * CategoriaProductosSearch represents the model behind the search form of `app\models\CategoriaProductos`.
  */
-class TallasSearch extends Tallas
+class CategoriaProductosSearch extends CategoriaProductos
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class TallasSearch extends Tallas
      */
     public function search($params)
     {
-        $query = Tallas::find();
+        $query = CategoriaProductos::find();
 
         // add conditions that should always apply here
 

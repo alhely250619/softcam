@@ -9,11 +9,13 @@ use Yii;
  *
  * @property int $Id
  * @property float $Monto
- * @property string $MetodoPago
  * @property int $VentasEncabezado_Id
  * @property int $Conceptos_Id
+ * @property string $FechaHora_creación
+ * @property int $MetodoPago_Id
  *
  * @property Conceptos $conceptos
+ * @property Metodopago $metodoPago
  * @property Ventasencabezado $ventasEncabezado
  */
 class Pagos extends \yii\db\ActiveRecord
@@ -32,11 +34,12 @@ class Pagos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Monto', 'MetodoPago', 'VentasEncabezado_Id', 'Conceptos_Id'], 'required'],
+            [['Monto', 'VentasEncabezado_Id', 'Conceptos_Id', 'FechaHora_creación', 'MetodoPago_Id'], 'required'],
             [['Monto'], 'number'],
-            [['VentasEncabezado_Id', 'Conceptos_Id'], 'integer'],
-            [['MetodoPago'], 'string', 'max' => 15],
+            [['VentasEncabezado_Id', 'Conceptos_Id', 'MetodoPago_Id'], 'integer'],
+            [['FechaHora_creación'], 'safe'],
             [['Conceptos_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Conceptos::class, 'targetAttribute' => ['Conceptos_Id' => 'Id']],
+            [['MetodoPago_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Metodopago::class, 'targetAttribute' => ['MetodoPago_Id' => 'Id']],
             [['VentasEncabezado_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Ventasencabezado::class, 'targetAttribute' => ['VentasEncabezado_Id' => 'Id']],
         ];
     }
@@ -49,9 +52,10 @@ class Pagos extends \yii\db\ActiveRecord
         return [
             'Id' => 'ID',
             'Monto' => 'Monto',
-            'MetodoPago' => 'Metodo Pago',
             'VentasEncabezado_Id' => 'Ventas Encabezado ID',
             'Conceptos_Id' => 'Conceptos ID',
+            'FechaHora_creación' => 'Fecha Hora Creación',
+            'MetodoPago_Id' => 'Metodo Pago ID',
         ];
     }
 
@@ -63,6 +67,16 @@ class Pagos extends \yii\db\ActiveRecord
     public function getConceptos()
     {
         return $this->hasOne(Conceptos::class, ['Id' => 'Conceptos_Id']);
+    }
+
+    /**
+     * Gets query for [[MetodoPago]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMetodoPago()
+    {
+        return $this->hasOne(Metodopago::class, ['Id' => 'MetodoPago_Id']);
     }
 
     /**

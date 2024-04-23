@@ -4,21 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\VentasDetalle $model */
+/** @var app\models\CategoriaProductos $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="ventas-detalle-form">
+<div class="categoria-productos-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'Cantidad')->textInput() ?>
-
-    <?= $form->field($model, 'Subtotal')->textInput() ?>
-
-    <?= $form->field($model, 'VentasEncabezado_Id')->textInput() ?>
-
-    <?= $form->field($model, 'Productos_id')->textInput() ?>
+    <?= $form->field($model, 'Nombre')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

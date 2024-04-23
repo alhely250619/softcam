@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Tallas;
+use app\models\MetodoPago;
 
 /**
- * TallasSearch represents the model behind the search form of `app\models\Tallas`.
+ * MetodoPagoSearch represents the model behind the search form of `app\models\MetodoPago`.
  */
-class TallasSearch extends Tallas
+class MetodoPagoSearch extends MetodoPago
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class TallasSearch extends Tallas
      */
     public function search($params)
     {
-        $query = Tallas::find();
+        $query = MetodoPago::find();
 
         // add conditions that should always apply here
 

@@ -5,21 +5,21 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "tallas".
+ * This is the model class for table "categoriaproductos".
  *
  * @property int $Id
  * @property string $Nombre
  *
  * @property Productos[] $productos
  */
-class Tallas extends \yii\db\ActiveRecord
+class Categoriaproductos extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'tallas';
+        return 'categoriaproductos';
     }
 
     /**
@@ -29,7 +29,7 @@ class Tallas extends \yii\db\ActiveRecord
     {
         return [
             [['Nombre'], 'required'],
-            [['Nombre'], 'string', 'max' => 4],
+            [['Nombre'], 'string', 'max' => 45],
         ];
     }
 
@@ -51,6 +51,6 @@ class Tallas extends \yii\db\ActiveRecord
      */
     public function getProductos()
     {
-        return $this->hasMany(Productos::class, ['Tallas_Id' => 'Id']);
+        return $this->hasMany(Productos::class, ['CategoriaProductos_Id' => 'Id']);
     }
 }

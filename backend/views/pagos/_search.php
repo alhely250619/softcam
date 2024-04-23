@@ -19,11 +19,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Monto') ?>
 
-    <?= $form->field($model, 'MetodoPago') ?>
-
     <?= $form->field($model, 'VentasEncabezado_Id') ?>
 
     <?= $form->field($model, 'Conceptos_Id') ?>
+
+    <?= $form->field($model, 'FechaHora_creación') ?>
+
+    <?php // echo $form->field($model, 'MetodoPago_Id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

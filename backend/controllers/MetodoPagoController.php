@@ -2,16 +2,16 @@
 
 namespace backend\controllers;
 
-use app\models\Productos;
-use backend\models\ProductosSearch;
+use app\models\MetodoPago;
+use backend\models\MetodoPagoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProductosController implements the CRUD actions for Productos model.
+ * MetodoPagoController implements the CRUD actions for MetodoPago model.
  */
-class ProductosController extends Controller
+class MetodoPagoController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class ProductosController extends Controller
     }
 
     /**
-     * Lists all Productos models.
+     * Lists all MetodoPago models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new ProductosSearch();
+        $searchModel = new MetodoPagoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +48,7 @@ class ProductosController extends Controller
     }
 
     /**
-     * Displays a single Productos model.
+     * Displays a single MetodoPago model.
      * @param int $Id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,13 +61,13 @@ class ProductosController extends Controller
     }
 
     /**
-     * Creates a new Productos model.
+     * Creates a new MetodoPago model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Productos();
+        $model = new MetodoPago();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -83,7 +83,7 @@ class ProductosController extends Controller
     }
 
     /**
-     * Updates an existing Productos model.
+     * Updates an existing MetodoPago model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $Id ID
      * @return string|\yii\web\Response
@@ -103,7 +103,7 @@ class ProductosController extends Controller
     }
 
     /**
-     * Deletes an existing Productos model.
+     * Deletes an existing MetodoPago model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $Id ID
      * @return \yii\web\Response
@@ -117,15 +117,15 @@ class ProductosController extends Controller
     }
 
     /**
-     * Finds the Productos model based on its primary key value.
+     * Finds the MetodoPago model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $Id ID
-     * @return Productos the loaded model
+     * @return MetodoPago the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($Id)
     {
-        if (($model = Productos::findOne(['Id' => $Id])) !== null) {
+        if (($model = MetodoPago::findOne(['Id' => $Id])) !== null) {
             return $model;
         }
 

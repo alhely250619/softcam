@@ -17,9 +17,9 @@ class PagosSearch extends Pagos
     public function rules()
     {
         return [
-            [['Id', 'VentasEncabezado_Id', 'Conceptos_Id'], 'integer'],
+            [['Id', 'VentasEncabezado_Id', 'Conceptos_Id', 'MetodoPago_Id'], 'integer'],
             [['Monto'], 'number'],
-            [['MetodoPago'], 'safe'],
+            [['FechaHora_creación'], 'safe'],
         ];
     }
 
@@ -63,9 +63,9 @@ class PagosSearch extends Pagos
             'Monto' => $this->Monto,
             'VentasEncabezado_Id' => $this->VentasEncabezado_Id,
             'Conceptos_Id' => $this->Conceptos_Id,
+            'FechaHora_creación' => $this->FechaHora_creación,
+            'MetodoPago_Id' => $this->MetodoPago_Id,
         ]);
-
-        $query->andFilterWhere(['like', 'MetodoPago', $this->MetodoPago]);
 
         return $dataProvider;
     }

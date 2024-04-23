@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -17,8 +17,8 @@ class VentasDetalleSearch extends VentasDetalle
     public function rules()
     {
         return [
-            [['Id', 'Cantidad', 'VentasEncabezado_Id', 'Productos_id', 'Tallas_Id'], 'integer'],
-            [['PrecioProducto', 'Total'], 'number'],
+            [['Id', 'Cantidad', 'VentasEncabezado_Id', 'Productos_id'], 'integer'],
+            [['Subtotal'], 'number'],
         ];
     }
 
@@ -60,11 +60,9 @@ class VentasDetalleSearch extends VentasDetalle
         $query->andFilterWhere([
             'Id' => $this->Id,
             'Cantidad' => $this->Cantidad,
-            'PrecioProducto' => $this->PrecioProducto,
-            'Total' => $this->Total,
+            'Subtotal' => $this->Subtotal,
             'VentasEncabezado_Id' => $this->VentasEncabezado_Id,
             'Productos_id' => $this->Productos_id,
-            'Tallas_Id' => $this->Tallas_Id,
         ]);
 
         return $dataProvider;

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -17,7 +17,7 @@ class ProductosSearch extends Productos
     public function rules()
     {
         return [
-            [['Id'], 'integer'],
+            [['Id', 'Tallas_Id', 'CategoriaProductos_Id'], 'integer'],
             [['Nombre', 'Genero'], 'safe'],
             [['Precio'], 'number'],
         ];
@@ -61,6 +61,8 @@ class ProductosSearch extends Productos
         $query->andFilterWhere([
             'Id' => $this->Id,
             'Precio' => $this->Precio,
+            'Tallas_Id' => $this->Tallas_Id,
+            'CategoriaProductos_Id' => $this->CategoriaProductos_Id,
         ]);
 
         $query->andFilterWhere(['like', 'Nombre', $this->Nombre])

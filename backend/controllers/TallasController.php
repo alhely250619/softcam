@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use app\models\Tallas;
-use app\models\TallasSearch;
+use backend\models\TallasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
