@@ -4,23 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\Productos $model */
+/** @var app\models\Genero $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="productos-form">
+<div class="genero-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'Nombre')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'Precio')->textInput() ?>
-
-    <?= $form->field($model, 'Tallas_Id')->textInput() ?>
-
-    <?= $form->field($model, 'CategoriaProductos_Id')->textInput() ?>
-
-    <?= $form->field($model, 'Genero_Id')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

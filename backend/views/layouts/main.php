@@ -45,6 +45,9 @@ AppAsset::register($this);
         ['label' => 'Alumnos', 'url' => ['/alumnos/index']],
         ['label' => 'Tallas', 'url' => ['/tallas/index']],
         ['label' => 'Conceptos de pago', 'url' => ['/conceptos/index']],
+        ['label' => 'Métodos de pago', 'url' => ['/metodo-pago/index']],
+        ['label' => 'Categoría productos', 'url' => ['/categoria-productos/index']],
+        ['label' => 'Genero de producto', 'url' => ['/genero/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
