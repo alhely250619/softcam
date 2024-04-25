@@ -6,7 +6,6 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var app\models\Pagos $model */
 /** @var yii\widgets\ActiveForm $form */
-
 use yii\db\Query;
 use yii\helpers\Json;
 
@@ -36,8 +35,6 @@ $out_metodo = [];
 foreach ($data_metodo as $d) {
     $out_metodo[$d['id']] = $d['nombre'];
 }
-
-
 ?>
 
 <div class="pagos-form">
@@ -50,9 +47,11 @@ foreach ($data_metodo as $d) {
 
     <?= $form->field($model, 'Conceptos_Id')->dropDownList($out) ?>
 
-    <?= $form->field($model, 'FechaHora_creación')->textInput() ?>
+    <!-- <?= $form->field($model, 'FechaHora_create')->textInput() ?> -->
 
     <?= $form->field($model, 'MetodoPago_Id')->dropDownList($out_metodo) ?>
+
+    <!-- <?= $form->field($model, 'FechaHora_update')->textInput() ?> -->
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

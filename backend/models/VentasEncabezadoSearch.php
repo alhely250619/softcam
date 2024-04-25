@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -18,7 +18,7 @@ class VentasEncabezadoSearch extends VentasEncabezado
     {
         return [
             [['Id', 'Alumnos_Id'], 'integer'],
-            [['Fecha', 'Estatus'], 'safe'],
+            [['Fecha_create', 'Estatus', 'Fecha_update'], 'safe'],
             [['Total'], 'number'],
         ];
     }
@@ -60,9 +60,10 @@ class VentasEncabezadoSearch extends VentasEncabezado
         // grid filtering conditions
         $query->andFilterWhere([
             'Id' => $this->Id,
-            'Fecha' => $this->Fecha,
+            'Fecha_create' => $this->Fecha_create,
             'Total' => $this->Total,
             'Alumnos_Id' => $this->Alumnos_Id,
+            'Fecha_update' => $this->Fecha_update,
         ]);
 
         $query->andFilterWhere(['like', 'Estatus', $this->Estatus]);

@@ -1,17 +1,21 @@
 <?php
 
 namespace app\models;
-
+use yii\behaviors\TimestampBehavior; 
+use yii\behaviors\BlameableBehavior; 
+use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 use Yii;
 
 /**
  * This is the model class for table "ventasencabezado".
  *
  * @property int $Id
- * @property string $Fecha
- * @property float|null $Total
+ * @property string $Fecha_create
+ * @property float $Total
  * @property string $Estatus
  * @property int $Alumnos_Id
+ * @property string $Fecha_update
  *
  * @property Alumnos $alumnos
  * @property Pagos[] $pagos
@@ -33,14 +37,23 @@ class Ventasencabezado extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Id', 'Fecha', 'Estatus', 'Alumnos_Id'], 'required'],
-            [['Id', 'Alumnos_Id'], 'integer'],
-            [['Fecha'], 'safe'],
+            [['Total', 'Estatus', 'Alumnos_Id'], 'required'],
+            [['Fecha_create', 'Fecha_update'], 'safe'],
             [['Total'], 'number'],
+            [['Alumnos_Id'], 'integer'],
             [['Estatus'], 'string', 'max' => 1],
-            [['Id'], 'unique'],
             [['Alumnos_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Alumnos::class, 'targetAttribute' => ['Alumnos_Id' => 'Id']],
         ];
+    }
+    public function behaviors() {
+        return [
+            [ 
+            'class' => TimestampBehavior::className(),
+            'createdAtAttribute' => 'Fecha_create', 
+            'updatedAtAttribute' => 'Fecha_update', 
+            'value' => new Expression('NOW()'), ], 
+            
+        ]; 
     }
 
     /**
@@ -50,10 +63,11 @@ class Ventasencabezado extends \yii\db\ActiveRecord
     {
         return [
             'Id' => 'ID',
-            'Fecha' => 'Fecha',
+            'Fecha_create' => 'Fecha Create',
             'Total' => 'Total',
             'Estatus' => 'Estatus',
             'Alumnos_Id' => 'Alumnos ID',
+            'Fecha_update' => 'Fecha Update',
         ];
     }
 

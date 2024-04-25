@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\VentasEncabezadoSearch $model */
+/** @var backend\models\VentasEncabezadoSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -17,13 +17,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Id') ?>
 
-    <?= $form->field($model, 'Fecha') ?>
+    <?= $form->field($model, 'Fecha_create') ?>
 
     <?= $form->field($model, 'Total') ?>
 
     <?= $form->field($model, 'Estatus') ?>
 
     <?= $form->field($model, 'Alumnos_Id') ?>
+
+    <?php // echo $form->field($model, 'Fecha_update') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -19,7 +19,7 @@ class PagosSearch extends Pagos
         return [
             [['Id', 'VentasEncabezado_Id', 'Conceptos_Id', 'MetodoPago_Id'], 'integer'],
             [['Monto'], 'number'],
-            [['FechaHora_creación'], 'safe'],
+            [['FechaHora_create', 'FechaHora_update'], 'safe'],
         ];
     }
 
@@ -63,8 +63,9 @@ class PagosSearch extends Pagos
             'Monto' => $this->Monto,
             'VentasEncabezado_Id' => $this->VentasEncabezado_Id,
             'Conceptos_Id' => $this->Conceptos_Id,
-            'FechaHora_creación' => $this->FechaHora_creación,
+            'FechaHora_create' => $this->FechaHora_create,
             'MetodoPago_Id' => $this->MetodoPago_Id,
+            'FechaHora_update' => $this->FechaHora_update,
         ]);
 
         return $dataProvider;

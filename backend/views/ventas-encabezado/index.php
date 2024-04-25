@@ -7,7 +7,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var app\models\VentasEncabezadoSearch $searchModel */
+/** @var backend\models\VentasEncabezadoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Ventas Encabezados';
@@ -30,10 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'Id',
-            'Fecha',
+            'Fecha_create',
             'Total',
             'Estatus',
             'Alumnos_Id',
+            //'Fecha_update',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, VentasEncabezado $model, $key, $index, $column) {

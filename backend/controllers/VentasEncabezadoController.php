@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use app\models\VentasEncabezado;
-use app\models\VentasEncabezadoSearch;
+use backend\models\VentasEncabezadoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

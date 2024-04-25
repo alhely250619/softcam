@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 use yii\db\Query;
 use yii\helpers\Json;
 
-// Consultas para traer conceptos de pago
+// Consultas para traer alumnos 
 $query = (new Query())
 ->select(['alumnos.id', 'alumnos.nombre','alumnos.apellido','alumnos.matricula']) // La lista de columnas se pasa como un array
 ->from('ventasencabezado')
@@ -28,15 +28,15 @@ foreach ($data as $d) {
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'Id')->textInput() ?>
-
-    <?= $form->field($model, 'Fecha')->textInput() ?>
+    <!-- <?= $form->field($model, 'Fecha_create')->textInput() ?> -->
 
     <?= $form->field($model, 'Total')->textInput() ?>
 
     <?= $form->field($model, 'Estatus')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Alumnos_Id')->dropDownList($out) ?>
+
+    <!-- <?= $form->field($model, 'Fecha_update')->textInput() ?> -->
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
