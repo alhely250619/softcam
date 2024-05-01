@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use common\models\RecordHelpers;
 
 /** @var yii\web\View $this */
 /** @var backend\models\ProductosSearch $searchModel */
@@ -32,8 +33,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'Id',
             'Nombre',
             'Precio',
-            'Tallas_Id',
-            'CategoriaProductos_Id',
+            [
+                'label' => 'Talla',
+                'value' => function ($searchProductos) {
+                return $searchProductos->tallas->Nombre;
+                }
+            ],
+            [
+                'label' => 'Categoria del Producto',
+                'value' => function ($searchCat) {
+                return $searchCat->categoriaProductos->Nombre;
+                }
+            ],
+               
             //'Genero_Id',
             [
                 'class' => ActionColumn::className(),
@@ -43,6 +55,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
 
 </div>

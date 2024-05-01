@@ -33,7 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'Cantidad',
             'Subtotal',
             'VentasEncabezado_Id',
-            'Productos_id',
+            [
+                'label' => 'Productos',
+                'value' => function ($searchProductos) {
+                return $searchProductos->productos->Nombre;
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, VentasDetalle $model, $key, $index, $column) {

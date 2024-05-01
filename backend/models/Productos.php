@@ -99,4 +99,5 @@ class Productos extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Ventasdetalle::class, ['Productos_id' => 'Id']);
     }
+    
 }

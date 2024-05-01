@@ -67,7 +67,7 @@ class ProductosSearch extends Productos
         ]);
 
         $query->andFilterWhere(['like', 'Nombre', $this->Nombre]);
-
+        
         return $dataProvider;
     }
 }

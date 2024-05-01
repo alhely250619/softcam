@@ -33,7 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'Fecha_create',
             'Total',
             'Estatus',
-            'Alumnos_Id',
+            [
+                'label' => 'Alumno',
+                'value' => function ($searchAlumnos) {
+                return $searchAlumnos->alumnos->Matricula;
+                }
+            ],
             //'Fecha_update',
             [
                 'class' => ActionColumn::className(),

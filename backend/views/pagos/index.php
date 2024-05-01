@@ -32,7 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'Id',
             'Monto',
             'VentasEncabezado_Id',
-            'Conceptos_Id',
+            [
+                'label' => 'Conceptos',
+                'value' => function ($searchConceptos) {
+                return $searchConceptos->conceptos->Nombre;
+                }
+            ],
             'FechaHora_create',
             //'MetodoPago_Id',
             //'FechaHora_update',
@@ -44,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+    
 
 
 </div>
