@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'Id',
             'Cantidad',
-            'Subtotal',
+            'Subtoital',
             'VentasEncabezado_Id',
             'Productos_id',
         ],
