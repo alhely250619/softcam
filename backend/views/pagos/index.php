@@ -39,7 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'FechaHora_create',
-            //'MetodoPago_Id',
+            [
+                'label' => 'Método',
+                'value' => function ($searchMetodo) {
+                return $searchMetodo->metodoPago->Nombre;
+                }
+            ],
+            
             //'FechaHora_update',
             [
                 'class' => ActionColumn::className(),

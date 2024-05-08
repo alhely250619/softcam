@@ -10,15 +10,18 @@ use yii\grid\GridView;
 /** @var backend\models\VentasEncabezadoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Ventas Encabezados';
+$this->title = 'Listado de Ventas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ventas-encabezado-index">
+
+
+
+<div class="ventas-encabezado-index" id="page-wrapper" ng-app="ventaApp" ng-controller="VentasController">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Ventas Encabezado', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nueva Venta', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

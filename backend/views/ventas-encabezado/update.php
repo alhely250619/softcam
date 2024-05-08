@@ -10,12 +10,17 @@ $this->params['breadcrumbs'][] = ['label' => 'Ventas Encabezados', 'url' => ['in
 $this->params['breadcrumbs'][] = ['label' => $model->Id, 'url' => ['view', 'Id' => $model->Id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="ventas-encabezado-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
 
+<div id="page-wrapper" ng-app="ventaApp" ng-controller="VentasController">
+    <div class="ventas-encabezado-update">
+
+        <h1><?= Html::encode($this->title) ?></h1>
+
+        <?= $this->render('_form', [
+            'model' => $model,
+        ]) ?>
+
+    </div>
 </div>

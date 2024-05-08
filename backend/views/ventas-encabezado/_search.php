@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="ventas-encabezado-search">
+<div class="ventas-encabezado-search" id="page-wrapper" ng-app="ventaApp" ng-controller="VentasController">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],

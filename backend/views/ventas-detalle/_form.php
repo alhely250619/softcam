@@ -24,6 +24,7 @@ foreach ($data as $d) {
 }
 ?>
 
+
 <div class="ventas-detalle-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -34,12 +35,15 @@ foreach ($data as $d) {
 
     <?= $form->field($model, 'VentasEncabezado_Id')->textInput() ?>
 
-    <?= $form->field($model, 'Productos_id')->dropDownList($out) ?>
+    <?= $form->field($model, 'Productos_id')->dropDownList($out,['prompt' => 'Select...']) ?>
+    
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
+    
+    
 
 </div>
