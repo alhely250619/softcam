@@ -40,49 +40,33 @@ foreach ($data as $d) {
 
 ?>
 
-<div class="ventas-encabezado-form" >
-
+<div class="ventas-encabezado-form">
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'Alumnos_Id')->dropDownList($out) ?>
 
     <?= $form->field($model, 'Estatus')->textInput(['maxlength' => true]) ?>
 
-
-</div>
-
-
-<div class="ventas-detalle-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'Cantidad')->textInput() ?>
-
-    <?= $form->field($model, 'Subtotal')->textInput() ?>
-
-    <?= $form->field($model, 'VentasEncabezado_Id')->textInput() ?>
-
-    <?= $form->field($model, 'Productos_id')->dropDownList($outPagos,['prompt' => 'Select...']) ?>
-    
+    <!-- Campos para los detalles de ventas -->
+    <?php foreach ($model->ventasdetalles as $index => $detalleModel): ?>
+        <?= $form->field($detalleModel, "[$index]Cantidad")->textInput() ?>
+        <?= $form->field($detalleModel, "[$index]Subtotal")->textInput() ?>
+        <!-- Aquí puedes acceder a las propiedades ventasencabezado_id y productos_id -->
+        <?= $form->field($detalleModel, "[$index]VentasEncabezado_Id")->hiddenInput()->label(false) ?>
+        <?= $form->field($detalleModel, "[$index]Productos_id")->hiddenInput()->label(false) ?>
+        <!-- Otros campos de detalles de ventas -->
+    <?php endforeach; ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>
+
 
 <!-- Aquí se incluye AngularJS y se define el controlador AngularJS -->
 <?php
 $this->registerJsFile('@web/assets/angular-1.5.7/angular.min.js', ['position' => \yii\web\View::POS_HEAD]);
 ?>
-<?php foreach ($model->ventasdetalles as $detalle): ?>
-    <p>Producto: <?= $detalle->producto ?></p>
-    <p>Cantidad: <?= $detalle->cantidad ?></p>
-    <p>Precio: <?= $detalle->precio ?></p>
-    <!-- Otros detalles de ventas -->
-<?php endforeach; ?>
 
 <div class="col-md-12">
     <div class="panel panel-default">

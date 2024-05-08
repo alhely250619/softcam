@@ -7,7 +7,8 @@ use backend\models\VentasEncabezadoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\models\VentasDetalle;
+use Yii;
 /**
  * VentasEncabezadoController implements the CRUD actions for VentasEncabezado model.
  */
@@ -68,6 +69,7 @@ class VentasEncabezadoController extends Controller
     public function actionCreate()
     {
         $model = new VentasEncabezado();
+        $detalleModel = new VentasDetalle();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -80,6 +82,30 @@ class VentasEncabezadoController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+
+        // Si se envía un formulario y se carga correctamente, se intenta guardar la venta encabezado
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                // Si se envía un formulario y se carga correctamente, se intenta guardar la venta encabezado
+                // Guardar la venta encabezado
+                $model->save();
+                // Asignar el ID del encabezado a la relación con el detalle
+                $detalleModel->ventasencabezado_id = $model->Id; // Ajustar según los nombres de los campos en tu modelo
+                // Si el detalle se carga correctamente, guardarlo
+                if ($detalleModel->load(Yii::$app->request->post()) && $detalleModel->save()) {
+                    // Redirigir a la vista de detalles de la venta encabezado
+                    return $this->redirect(['view', 'Id' => $model->Id]);
+                }
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+    
+        return $this->render('create', [
+            'model' => $model,
+            'detalleModel' => $detalleModel, // Pasar el modelo de detalle a la vista
+        ]);
+        
     }
 
     /**
