@@ -56,10 +56,7 @@ foreach ($data as $d) {
         <?= $form->field($detalleModel, "[$index]Productos_id")->hiddenInput()->label(false) ?>
         <!-- Otros campos de detalles de ventas -->
     <?php endforeach; ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
+    
 </div>
 
 

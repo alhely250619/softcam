@@ -13,13 +13,14 @@ $this->params['breadcrumbs'][] = 'Update';
 
 
 
-<div id="page-wrapper" ng-app="ventaApp" ng-controller="VentasController">
+<div >
     <div class="ventas-encabezado-update">
 
         <h1><?= Html::encode($this->title) ?></h1>
 
         <?= $this->render('_form', [
             'model' => $model,
+            'detalleModel'=>$detalleModel,
         ]) ?>
 
     </div>

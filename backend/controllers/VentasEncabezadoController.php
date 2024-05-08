@@ -90,7 +90,7 @@ class VentasEncabezadoController extends Controller
                 // Guardar la venta encabezado
                 $model->save();
                 // Asignar el ID del encabezado a la relación con el detalle
-                $detalleModel->ventasencabezado_id = $model->Id; // Ajustar según los nombres de los campos en tu modelo
+                $detalleModel->VentasEncabezado_Id = $model->Id; // Ajustar según los nombres de los campos en tu modelo
                 // Si el detalle se carga correctamente, guardarlo
                 if ($detalleModel->load(Yii::$app->request->post()) && $detalleModel->save()) {
                     // Redirigir a la vista de detalles de la venta encabezado
@@ -118,6 +118,7 @@ class VentasEncabezadoController extends Controller
     public function actionUpdate($Id)
     {
         $model = $this->findModel($Id);
+        $detalleModel  = $this-> VentasDetalle();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'Id' => $model->Id]);
@@ -125,6 +126,7 @@ class VentasEncabezadoController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'detallModel'=>$detalleModel,
         ]);
     }
 
