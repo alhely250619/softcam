@@ -56,7 +56,10 @@ foreach ($data as $d) {
         <?= $form->field($detalleModel, "[$index]Productos_id")->hiddenInput()->label(false) ?>
         <!-- Otros campos de detalles de ventas -->
     <?php endforeach; ?>
-    
+
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    </div>
 </div>
 
 
@@ -81,9 +84,16 @@ $this->registerJsFile('@web/assets/angular-1.5.7/angular.min.js', ['position' =>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                    </tr>
+                    <!-- Campos para los detalles de ventas -->
+                    <?php foreach ($model->ventasdetalles as $index => $detalleModel): ?>
+                        <tr>
+                            <td><?= $detalleModel->Productos_id ?></td>
+                            <td><?= $detalleModel->Cantidad ?></td>
+                            <td></td>
+                            <td><?= $detalleModel->Subtotal ?></td>
+                        </tr>
+                        <!-- Otros campos de detalles de ventas -->
+                    <?php endforeach; ?>
                 </tbody>
             </table>
             

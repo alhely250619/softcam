@@ -67,45 +67,36 @@ class VentasEncabezadoController extends Controller
      * @return string|\yii\web\Response
      */
     public function actionCreate()
+
     {
         $model = new VentasEncabezado();
         $detalleModel = new VentasDetalle();
 
+        // Verificar si se está enviando un formulario
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'Id' => $model->Id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-
-        // Si se envía un formulario y se carga correctamente, se intenta guardar la venta encabezado
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                // Si se envía un formulario y se carga correctamente, se intenta guardar la venta encabezado
-                // Guardar la venta encabezado
-                $model->save();
-                // Asignar el ID del encabezado a la relación con el detalle
-                $detalleModel->VentasEncabezado_Id = $model->Id; // Ajustar según los nombres de los campos en tu modelo
-                // Si el detalle se carga correctamente, guardarlo
-                if ($detalleModel->load(Yii::$app->request->post()) && $detalleModel->save()) {
-                    // Redirigir a la vista de detalles de la venta encabezado
-                    return $this->redirect(['view', 'Id' => $model->Id]);
+            // Cargar datos del formulario en el modelo de ventas encabezado
+            if ($model->load($this->request->post())) {
+                // Guardar el modelo de ventas encabezado
+                if ($model->save()) {
+                    // Asignar el ID del encabezado a la relación con el detalle
+                    $detalleModel->VentasEncabezado_Id = $model->Id;
+                    // Cargar datos del formulario en el modelo de detalle
+                    if ($detalleModel->load(Yii::$app->request->post()) && $detalleModel->save()) {
+                        // Redirigir a la vista de detalles de la venta encabezado
+                        return $this->redirect(['view', 'Id' => $model->Id]);
+                    }
                 }
             }
         } else {
+            // Cargar valores predeterminados para el modelo de ventas encabezado
             $model->loadDefaultValues();
         }
-    
+
+        // Renderizar la vista con los modelos
         return $this->render('create', [
             'model' => $model,
-            'detalleModel' => $detalleModel, // Pasar el modelo de detalle a la vista
+            'detalleModel' => $detalleModel,
         ]);
-        
     }
 
     /**
@@ -118,7 +109,7 @@ class VentasEncabezadoController extends Controller
     public function actionUpdate($Id)
     {
         $model = $this->findModel($Id);
-        $detalleModel  = $this-> VentasDetalle();
+        $detalleModel = new VentasDetalle();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'Id' => $model->Id]);
@@ -126,7 +117,7 @@ class VentasEncabezadoController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'detallModel'=>$detalleModel,
+            'detalleModel' => $detalleModel, // Pasar el modelo de detalle a la vista
         ]);
     }
 
