@@ -18,6 +18,7 @@ class ProductosSearch extends Productos
     {
         return [
             [['Id', 'Tallas_Id', 'CategoriaProductos_Id', 'Genero_Id'], 'integer'],
+            [['Folio'], 'safe'],// se declara un nuevo atributo
             [['Nombre'], 'safe'],
             [['Precio'], 'number'],
         ];
@@ -65,7 +66,7 @@ class ProductosSearch extends Productos
             'CategoriaProductos_Id' => $this->CategoriaProductos_Id,
             'Genero_Id' => $this->Genero_Id,
         ]);
-
+        //hacer una consulta con el Nombre
         $query->andFilterWhere(['like', 'Nombre', $this->Nombre]);
         
         return $dataProvider;

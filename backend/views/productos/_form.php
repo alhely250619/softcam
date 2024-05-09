@@ -51,6 +51,8 @@ foreach ($data as $d) {
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'Folio')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'Nombre')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Precio')->textInput() ?>
