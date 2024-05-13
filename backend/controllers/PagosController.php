@@ -8,11 +8,43 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use kartik\mpdf\Pdf;
+
 /**
  * PagosController implements the CRUD actions for Pagos model.
  */
 class PagosController extends Controller
-{
+{	    
+    public function actionViewPdf($id)
+    {
+        // Obtener el modelo de pago correspondiente al ID proporcionado
+        $model = $this->findModel($id);
+    
+        // Renderizar la vista 'viewpdf' con el modelo de pago
+        $content = $this->renderPartial('viewpdf', [
+            'model' => $model,
+        ]);
+    
+        // Configurar el componente Pdf
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_CORE, 
+            'format' => Pdf::FORMAT_A4, 
+            'orientation' => Pdf::ORIENT_PORTRAIT, 
+            'destination' => Pdf::DEST_BROWSER, 
+            'content' => $content,
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            'cssInline' => '.kv-heading-1{font-size:18px}', 
+            'options' => ['title' => 'Pago PDF'],
+            'methods' => [ 
+                'SetHeader'=>['Krajee Report Header'], 
+                'SetFooter'=>['{PAGENO}'],
+            ]
+        ]);
+    
+        // Retornar el PDF renderizado
+        return $pdf->render();
+    }
+    
     /**
      * @inheritDoc
      */
@@ -30,6 +62,9 @@ class PagosController extends Controller
             ]
         );
     }
+
+
+    
 
     /**
      * Lists all Pagos models.

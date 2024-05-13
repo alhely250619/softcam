@@ -13,6 +13,7 @@ use yii\grid\GridView;
 $this->title = 'Ventas Detalles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="ventas-detalle-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -27,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+
             ['class' => 'yii\grid\SerialColumn'],
 
             'Id',
@@ -45,11 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, VentasDetalle $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'Id' => $model->Id]);
+                    
                 }
                 
             ],
         ],
-    ]); ?>
+        
+    ]); 
+    ?>
 
 
 </div>
