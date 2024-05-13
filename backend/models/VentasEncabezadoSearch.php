@@ -18,8 +18,10 @@ class VentasEncabezadoSearch extends VentasEncabezado
     {
         return [
             [['Id', 'Alumnos_Id'], 'integer'],
-            [['Fecha_create', 'Estatus', 'Fecha_update'], 'safe'],
+            [['Id', 'EstatusEncabezado_Id'], 'integer'],
+            [['Fecha_create', 'Fecha_update'], 'safe'],
             [['Total'], 'number'],
+            [['Nota'], 'safe'],
         ];
     }
 
@@ -62,11 +64,13 @@ class VentasEncabezadoSearch extends VentasEncabezado
             'Id' => $this->Id,
             'Fecha_create' => $this->Fecha_create,
             'Total' => $this->Total,
+            'Nota' => $this->Nota,
             'Alumnos_Id' => $this->Alumnos_Id,
+            'EstatusEncabezado_Id' => $this->EstatusEncabezado_Id,
             'Fecha_update' => $this->Fecha_update,
         ]);
 
-        $query->andFilterWhere(['like', 'Estatus', $this->Estatus]);
+        $query->andFilterWhere(['like', 'EstatusEncabezado_Id', $this->EstatusEncabezado_Id]);
 
         return $dataProvider;
     }

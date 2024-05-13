@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="ventas-encabezado-search" id="page-wrapper" ng-app="ventaApp" ng-controller="VentasController">
+<div class="ventas-encabezado-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -21,9 +21,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Total') ?>
 
-    <?= $form->field($model, 'Estatus') ?>
+    <?= $form->field($model, 'Nota') ?>
 
     <?= $form->field($model, 'Alumnos_Id') ?>
+
+    <?= $form->field($model, 'EstatusEncabezado_Id') ?>
 
     <?php // echo $form->field($model, 'Fecha_update') ?>
 

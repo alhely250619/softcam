@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Ventas Encabezados', 'url' => ['in
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div id="page-wrapper" ng-app="ventaApp" ng-controller="VentasController">
+<div >
     <div class="ventas-encabezado-view">
 
         <h1><?= Html::encode($this->title) ?></h1>
@@ -33,8 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'Id',
                 'Fecha_create',
                 'Total',
-                'Estatus',
+                'Nota',
                 'Alumnos_Id',
+                'EstatusEncabezado_Id',
                 'Fecha_update',
             ],
         ]) ?>

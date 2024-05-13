@@ -7,10 +7,9 @@ use yii\helpers\Html;
 /** @var app\models\VentasDetalle $detalleModel */
 
 
-$this->title = 'Create Ventas Encabezado';
+$this->title = 'Nueva venta';
 $this->params['breadcrumbs'][] = ['label' => 'Ventas Encabezados', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['breadcrumbs'][] = 'Create';
 
 ?>
 <div >

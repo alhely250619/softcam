@@ -16,12 +16,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-<div class="ventas-encabezado-index" id="page-wrapper" ng-app="ventaApp" ng-controller="VentasController">
+<div class="ventas-encabezado-index" >
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Nueva Venta', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nueva Venta', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -32,14 +32,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'Id',
-            'Fecha_create',
+            [
+                'label' => 'Fecha Creación',
+                'value' => 'Fecha_create',
+                
+            ],
             'Total',
-            'Estatus',
+            'Nota',
             [
                 'label' => 'Alumno',
                 'value' => function ($searchAlumnos) {
                 return $searchAlumnos->alumnos->Matricula;
+                }
+            ],
+            [
+                'label' => 'Estatus',
+                'value' => function ($searchEstatus) {
+                return $searchEstatus->estatusencabezado->Nombre;
                 }
             ],
             //'Fecha_update',
