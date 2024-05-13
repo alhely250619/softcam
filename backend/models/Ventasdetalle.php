@@ -32,7 +32,7 @@ class Ventasdetalle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Cantidad', 'Subtotal', 'VentasEncabezado_Id', 'Productos_id'], 'required'],
+            [['Cantidad', 'Productos_id'], 'required'],
             [['Cantidad', 'VentasEncabezado_Id', 'Productos_id'], 'integer'],
             [['Subtotal'], 'number'],
             [['Productos_id'], 'exist', 'skipOnError' => true, 'targetClass' => Productos::class, 'targetAttribute' => ['Productos_id' => 'Id']],

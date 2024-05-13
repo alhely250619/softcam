@@ -13,8 +13,11 @@ use Yii;
  * @property int $Id
  * @property string $Fecha_create
  * @property float $Total
+ * @property float $IVA
+ * @property string $Nota
  * @property string $Estatus
  * @property int $Alumnos_Id
+ * * @property int $EstatusEncabezado_Id
  * @property string $Fecha_update
  *
  * @property Alumnos $alumnos
@@ -37,12 +40,15 @@ class Ventasencabezado extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Total', 'Estatus', 'Alumnos_Id'], 'required'],
+            [['Total', 'Alumnos_Id'], 'required'],
+            [['EstatusEncabezado_Id'], 'required'],
             [['Fecha_create', 'Fecha_update'], 'safe'],
             [['Total'], 'number'],
+            [['Nota'], 'safe'],
             [['Alumnos_Id'], 'integer'],
-            [['Estatus'], 'string', 'max' => 1],
+            [['EstatusEncabezado_Id'], 'integer'],
             [['Alumnos_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Alumnos::class, 'targetAttribute' => ['Alumnos_Id' => 'Id']],
+            [['EstatusEncabezado_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Estatusencabezado::class, 'targetAttribute' => ['EstatusEncabezado_Id' => 'Id']],
         ];
     }
     public function behaviors() {
@@ -65,8 +71,9 @@ class Ventasencabezado extends \yii\db\ActiveRecord
             'Id' => 'ID',
             'Fecha_create' => 'Fecha Create',
             'Total' => 'Total',
-            'Estatus' => 'Estatus',
-            'Alumnos_Id' => 'Alumnos ID',
+            'Nota' => 'Nota',
+            'Alumnos_Id' => 'Alumno',
+            'EstatusEncabezado_Id' => 'Estatus',
             'Fecha_update' => 'Fecha Update',
         ];
     }
@@ -98,6 +105,20 @@ class Ventasencabezado extends \yii\db\ActiveRecord
      */
     public function getVentasdetalles()
     {
-        return $this->hasMany(Ventasdetalle::class, ['VentasEncabezado_Id' => 'Id']);
+        return Ventasdetalle::find()
+        ->orWhere(['VentasEncabezado_Id' => null]) // Incluir registros con VentasEncabezado_Id igual a null
+        ->orWhere(['VentasEncabezado_Id' => $this->Id]) // Incluir registros relacionados con el ID actual
+        ->all();
+    }
+
+    public function getEstatusencabezado()
+    {
+        return $this->hasOne(Estatusencabezado::class, ['Id' => 'EstatusEncabezado_Id']);
+    }
+    
+    public static function getVentasDetalleNull()
+    {
+        return Ventasdetalle::find()->where(['VentasEncabezado_Id' => null])->all();
     }
 }
+

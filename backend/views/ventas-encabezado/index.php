@@ -10,15 +10,18 @@ use yii\grid\GridView;
 /** @var backend\models\VentasEncabezadoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Ventas Encabezados';
+$this->title = 'Listado de Ventas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ventas-encabezado-index">
+
+
+
+<div class="ventas-encabezado-index" >
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Ventas Encabezado', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nueva Venta', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -29,14 +32,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'Id',
-            'Fecha_create',
+            [
+                'label' => 'Fecha Creación',
+                'value' => 'Fecha_create',
+                
+            ],
             'Total',
-            'Estatus',
+            'Nota',
             [
                 'label' => 'Alumno',
                 'value' => function ($searchAlumnos) {
                 return $searchAlumnos->alumnos->Matricula;
+                }
+            ],
+            [
+                'label' => 'Estatus',
+                'value' => function ($searchEstatus) {
+                return $searchEstatus->estatusencabezado->Nombre;
                 }
             ],
             //'Fecha_update',

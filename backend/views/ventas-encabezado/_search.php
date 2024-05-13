@@ -21,9 +21,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Total') ?>
 
-    <?= $form->field($model, 'Estatus') ?>
+    <?= $form->field($model, 'Nota') ?>
 
     <?= $form->field($model, 'Alumnos_Id') ?>
+
+    <?= $form->field($model, 'EstatusEncabezado_Id') ?>
 
     <?php // echo $form->field($model, 'Fecha_update') ?>
 

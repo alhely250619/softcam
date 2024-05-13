@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'FechaHora_create',
             [
-                'label' => 'metodo',
+                'label' => 'Método',
                 'value' => function ($searchMetodo) {
                 return $searchMetodo->metodoPago->Nombre;
                 }
@@ -54,4 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
         ],
-    ]);?>
+    ]); ?>
+    
+
+
+</div>

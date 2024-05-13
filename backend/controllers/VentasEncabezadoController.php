@@ -7,7 +7,8 @@ use backend\models\VentasEncabezadoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\models\VentasDetalle;
+use Yii;
 /**
  * VentasEncabezadoController implements the CRUD actions for VentasEncabezado model.
  */
@@ -65,20 +66,45 @@ class VentasEncabezadoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($ProcessCreate = 0, $EstatusEncabezado_Id = NULL, $Alumnos_Id = NULL)
     {
         $model = new VentasEncabezado();
+        $detalleModel = new VentasDetalle();
 
+        // Verificar si se está enviando un formulario
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'Id' => $model->Id]);
+            // Cargar datos del formulario en el modelo de ventas encabezado
+            if ($model->load($this->request->post())) {
+                // Guardar el modelo de ventas encabezado
+                if ($model->save()) {
+                    $ventasDetalleNull = VentasEncabezado::getVentasDetalleNull();
+                    foreach ($ventasDetalleNull as $ventaDetalle) {
+                        $ventaDetalle->VentasEncabezado_Id = $model->Id;
+                        $ventaDetalle->save(); 
+                    }
+                    return $this->redirect(['view', 'Id' => $model->Id]);
+                }
             }
         } else {
+            if ($ProcessCreate == 0) {
+                // Obtener todos los VentasDetalle con VentaEncabezado_Id igual a null
+                $ventasDetalleNull = VentasEncabezado::getVentasDetalleNull();
+    
+                // Iterar sobre los registros y eliminarlos
+                foreach ($ventasDetalleNull as $ventaDetalle) {
+                    $ventaDetalle->delete();
+                }
+            }
+            // Cargar valores predeterminados para el modelo de ventas encabezado
             $model->loadDefaultValues();
+            $model->EstatusEncabezado_Id = $EstatusEncabezado_Id;
+            $model->Alumnos_Id = $Alumnos_Id;
         }
 
+        // Renderizar la vista con los modelos
         return $this->render('create', [
             'model' => $model,
+            'detalleModel' => $detalleModel,
         ]);
     }
 
@@ -89,17 +115,38 @@ class VentasEncabezadoController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($Id)
+    public function actionUpdate($Id, $ProcessUpdate = 0, $EstatusEncabezado_Id = NULL, $Alumnos_Id = NULL)
     {
         $model = $this->findModel($Id);
+        $detalleModel = new VentasDetalle();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $ventasDetalleNull = VentasEncabezado::getVentasDetalleNull();
+            foreach ($ventasDetalleNull as $ventaDetalle) {
+                $ventaDetalle->VentasEncabezado_Id = $model->Id;
+                $ventaDetalle->save(); 
+            }
             return $this->redirect(['view', 'Id' => $model->Id]);
         }
+        if ($ProcessUpdate == 0) {
+            // Obtener todos los VentasDetalle con VentaEncabezado_Id igual a null
+            $ventasDetalleNull = VentasEncabezado::getVentasDetalleNull();
 
+            // Iterar sobre los registros y eliminarlos
+            foreach ($ventasDetalleNull as $ventaDetalle) {
+                $ventaDetalle->delete();
+            }
+            
+        } else {
+            $model->EstatusEncabezado_Id = $EstatusEncabezado_Id;
+            $model->Alumnos_Id = $Alumnos_Id;
+        }
+        
         return $this->render('update', [
             'model' => $model,
+            'detalleModel' => $detalleModel, // Pasar el modelo de detalle a la vista
         ]);
+
     }
 
     /**

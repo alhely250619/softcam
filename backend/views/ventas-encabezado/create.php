@@ -4,17 +4,25 @@ use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var app\models\VentasEncabezado $model */
+/** @var app\models\VentasDetalle $detalleModel */
 
-$this->title = 'Create Ventas Encabezado';
+
+$this->title = 'Nueva venta';
 $this->params['breadcrumbs'][] = ['label' => 'Ventas Encabezados', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
-<div class="ventas-encabezado-create">
+<div >
+    <div>
+        <div class="ventas-encabezado-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+            <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+            <?= $this->render('_form', [
+                'model' => $model,
+                'detalleModel' => $detalleModel,
+            ]) ?>
 
+        </div>
+    </div>
 </div>

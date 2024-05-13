@@ -20,6 +20,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <?php $this->registerJsFile('@web/assets/angular-1.5.7/angular.min.js', ['position' => \yii\web\View::POS_HEAD]); ?>
     <?php $this->head() ?>
 </head>
 <body class="d-flex flex-column h-100">
@@ -39,8 +40,7 @@ AppAsset::register($this);
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
         ['label' => 'Productos', 'url' => ['/productos/index']],
-        ['label' => 'Venta Encabezado', 'url' => ['/ventas-encabezado/index']],
-        ['label' => 'Venta Detalle', 'url' => ['/ventas-detalle/index']],
+        ['label' => 'Ventas', 'url' => ['/ventas-encabezado/index']],
         ['label' => 'Pagos', 'url' => ['/pagos/index']],
         ['label' => 'Alumnos', 'url' => ['/alumnos/index']],
         ['label' => 'Tallas', 'url' => ['/tallas/index']],

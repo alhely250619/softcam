@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 use yii\db\Query;
 use yii\helpers\Json;
 
+
 // Consultas para traer conceptos de pago
 $query = (new Query())
 ->select(['conceptos.id', 'conceptos.nombre']) // La lista de columnas se pasa como un array

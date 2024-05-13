@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use app\models\VentasDetalle;
+use app\models\Ventasencabezado;
 use backend\models\VentasDetalleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -13,6 +14,7 @@ use yii\filters\VerbFilter;
  */
 class VentasDetalleController extends Controller
 {
+    public $layout = 'blank';
     /**
      * @inheritDoc
      */
@@ -65,16 +67,20 @@ class VentasDetalleController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($VentasEncabezado_Id = NULL, $EstatusEncabezado_Id=null, $Alumnos_Id = NULL)
     {
         $model = new VentasDetalle();
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'Id' => $model->Id]);
+                if ($model->VentasEncabezado_Id == NULL) {
+                    return $this->redirect(['ventas-encabezado/create', 'ProcessCreate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+                } else {
+                    return $this->redirect(['ventas-encabezado/update', 'Id' => $model->VentasEncabezado_Id, 'ProcessUpdate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+                }
             }
         } else {
             $model->loadDefaultValues();
+            $model->VentasEncabezado_Id = $VentasEncabezado_Id;
         }
 
         return $this->render('create', [
@@ -89,12 +95,17 @@ class VentasDetalleController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($Id)
+    public function actionUpdate($Id, $EstatusEncabezado_Id=null, $Alumnos_Id = NULL)
     {
         $model = $this->findModel($Id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'Id' => $model->Id]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                if ($model->VentasEncabezado_Id == NULL) {
+                    return $this->redirect(['ventas-encabezado/create', 'ProcessCreate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+                } else {
+                    return $this->redirect(['ventas-encabezado/update', 'Id' => $model->VentasEncabezado_Id, 'ProcessUpdate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+                }
+            }
         }
 
         return $this->render('update', [
@@ -109,11 +120,15 @@ class VentasDetalleController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($Id)
+    public function actionDelete($Id, $VentasEncabezado_Id = NULL, $EstatusEncabezado_Id=null, $Alumnos_Id = NULL)
     {
         $this->findModel($Id)->delete();
 
-        return $this->redirect(['index']);
+        if ($VentasEncabezado_Id == NULL) {
+            return $this->redirect(['ventas-encabezado/create', 'ProcessCreate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+        } else {
+            return $this->redirect(['ventas-encabezado/update', 'Id' => $VentasEncabezado_Id, 'ProcessUpdate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+        }
     }
 
     /**
