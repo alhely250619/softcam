@@ -20,6 +20,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <?php $this->registerJsFile('@web/assets/angular-1.5.7/angular.min.js', ['position' => \yii\web\View::POS_HEAD]); ?>
     <?php $this->head() ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -42,6 +43,17 @@ AppAsset::register($this);
 
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'About', 'url' => ['/site/about']],
+        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Productos', 'url' => ['/productos/index']],
+        ['label' => 'Ventas', 'url' => ['/ventas-encabezado/index']],
+        ['label' => 'Pagos', 'url' => ['/pagos/index']],
+        ['label' => 'Alumnos', 'url' => ['/alumnos/index']],
+        ['label' => 'Tallas', 'url' => ['/tallas/index']],
+        ['label' => 'Conceptos de pago', 'url' => ['/conceptos/index']],
+        ['label' => 'Métodos de pago', 'url' => ['/metodo-pago/index']],
+        ['label' => 'Categoría productos', 'url' => ['/categoria-productos/index']],
+        ['label' => 'Genero de producto', 'url' => ['/genero/index']],
     ];
     //Aqui se loguea el usuario en el backend
     if (Yii::$app->user->isGuest) {  //aqui se detecta el logueo

@@ -39,13 +39,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'FechaHora_create',
-            //'MetodoPago_Id',
+            [
+                'label' => 'Método',
+                'value' => function ($searchMetodo) {
+                return $searchMetodo->metodoPago->Nombre;
+                }
+            ],
+            
             //'FechaHora_update',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Pagos $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'Id' => $model->Id]);
-                 }
+                }
             ],
         ],
     ]); ?>
