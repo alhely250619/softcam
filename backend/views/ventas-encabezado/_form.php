@@ -190,6 +190,13 @@ foreach ($data as $d) {
                         </tr>
                         <!-- Otros campos de detalles de ventas -->
                     <?php endforeach; ?>
+                    <?php if (count($model->ventasdetalles) <= 0 ) {?>
+                        <tr>
+                            <td colspan="12">
+                                No hay productos agregados
+                            </td>
+                        </tr>
+                    <?php } ?> 
                 </tbody>
                 
             </table>
@@ -235,13 +242,19 @@ foreach ($data as $d) {
 </div>
 <div>
     <div>
-        <?= $form->field($model, 'Total')->textInput(['value' => $totalGeneral]) ?>
+        <?= $form->field($model, 'Total')->textInput(['value' => $totalGeneral, 'readonly' => true]) ?>
         <?= $form->field($model, 'Nota')->textInput() ?>
                     </br>
     </div>
-    <div class="form-group" >
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>
-    </div>
+    <?php if(count($model->ventasdetalles) > 0) { ?>
+        <div  class="form-group" >
+            <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>
+        </div>
+    <?php } else { ?>
+        <div  class="form-group" >
+            <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary', 'disabled' => true]) ?>
+        </div>
+    <?php } ?>
 
     <?php ActiveForm::end(); ?>
 </div>

@@ -51,6 +51,8 @@ foreach ($data as $d) {
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'Folio')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'Nombre')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Precio')->textInput() ?>
@@ -62,8 +64,19 @@ foreach ($data as $d) {
     <?= $form->field($model, 'Genero_Id')->dropDownList($out_genero) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'onclick' => 'exito()']) ?>
     </div>
+    <script>
+    function exito(){
+        swal({
+        title: "Registro Guardado!",
+        text: "Exitosamente!",
+        icon: "success",
+        button: "Cerrar!"
+        });
+    }
+    </script>
+    
 
     <?php ActiveForm::end(); ?>
 

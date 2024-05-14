@@ -21,8 +21,21 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'Sexo')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+
+    <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'onclick' => 'exito()']) ?>
+   
     </div>
+    <script>
+    function exito(){
+        swal({
+        title: "Registro Guardado!",
+        text: "Exitosamente!",
+        icon: "success",
+        button: "Cerrar!"
+        });
+    }
+    </script>
+    
 
     <?php ActiveForm::end(); ?>
 

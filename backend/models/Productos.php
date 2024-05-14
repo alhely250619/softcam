@@ -38,6 +38,7 @@ class Productos extends \yii\db\ActiveRecord
             [['Nombre', 'Precio', 'Tallas_Id', 'CategoriaProductos_Id', 'Genero_Id'], 'required'],
             [['Precio'], 'number'],
             [['Tallas_Id', 'CategoriaProductos_Id', 'Genero_Id'], 'integer'],
+            [['Folio'], 'string', 'max' => 45],//se agrega un nuevo campo llamado folio
             [['Nombre'], 'string', 'max' => 45],
             [['CategoriaProductos_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Categoriaproductos::class, 'targetAttribute' => ['CategoriaProductos_Id' => 'Id']],
             [['Genero_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Genero::class, 'targetAttribute' => ['Genero_Id' => 'Id']],
@@ -52,6 +53,7 @@ class Productos extends \yii\db\ActiveRecord
     {
         return [
             'Id' => 'ID',
+            'Folio' => 'Folio',// se agrego un nuevo campo llamado folio
             'Nombre' => 'Nombre',
             'Precio' => 'Precio',
             'Tallas_Id' => 'Tallas ID',

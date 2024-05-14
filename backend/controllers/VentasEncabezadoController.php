@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\VentasDetalle;
+use app\models\PAgos;
 use Yii;
 /**
  * VentasEncabezadoController implements the CRUD actions for VentasEncabezado model.
@@ -158,6 +159,8 @@ class VentasEncabezadoController extends Controller
      */
     public function actionDelete($Id)
     {
+        Ventasdetalle::deleteAll(['VentasEncabezado_Id' => $Id]);
+        Pagos::deleteAll(['VentasEncabezado_Id' => $Id]);
         $this->findModel($Id)->delete();
 
         return $this->redirect(['index']);
