@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Alumno',
                 'value' => function ($searchAlumnos) {
-                return $searchAlumnos->alumnos->Matricula;
+                    return $searchAlumnos->alumnos->Matricula . ' - '.$searchAlumnos->alumnos->Apellido.' '.$searchAlumnos->alumnos->Nombre;
                 }
             ],
             [
