@@ -24,9 +24,27 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+   < <style>
+    .custom-navbar {
+        background-color: #3498DB !important; /* Color de fondo personalizado */
+    }
+
+    .custom-navbar .navbar-nav .nav-link {
+        color: white !important; /* Color de las letras */
+        font-weight: bold !important; /* Letras en negrita */
+    }
+
+    .custom-navbar .navbar-brand {
+        color: white !important; /* Color de la marca */
+        font-weight: bold !important; /* Marca en negrita */
+    }
+    </style>
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
+
+
 
 <header>
     <?php
@@ -36,7 +54,8 @@ AppAsset::register($this);
         'options' => [
             //'class' => 'navbar navbar-expand-md navbar-dark bg-primary fixed-top', /// cabiar color
             //'class' => 'navbar', 'style' => 'background-color: #e3f2fd;',
-            'class' => 'navbar navbar-expand-md', 'style' => 'background-color: #01579B; position: fixed; top: 0; width: 100%;',
+            //'class' => 'navbar navbar-expand-md', 'style' => 'background-color: #3498DB; position: fixed; top: 0; width: 100%;',
+            'class' => 'navbar navbar-expand-md custom-navbar fixed-top',
 
         ],
     ]);
@@ -64,30 +83,15 @@ AppAsset::register($this);
         //titulo de menu con opcion, se agrega el menu
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
-            //['label' => 'Alumnos', 'url' => ['/alumnos/index']],
-            //['label' => 'Venta Encabezado', 'url' => ['/ventas-encabezado/index']],
+            ['label' => 'Alumnos', 'url' => ['/alumnos/index']],
+            ['label' => 'Ventas', 'url' => ['/ventas-encabezado/index']],
             //['label' => 'Venta Detalle', 'url' => ['/ventas-detalle/index']],
         ];
         //Aqui se loguea el usuario en el backend
         if (Yii::$app->user->isGuest) {  //aqui se detecta el logueo
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
         }else
-        {
-            $menuItems[] = ['label' => 'Alumnos', 'url' => ['/site/index'],
-            'options' =>['class' =>'dropdown'],
-            'template'=>'<a href="{url}" class="href_class">{label}</a>',
-            'items' =>[ ['label' => 'Alumnos', 'url' => ['/alumnos']],  
-                        ],
-            ];  
-
-            $menuItems[] = ['label' => 'Ventas', 'url' => ['/site/index'],
-            'options' =>['class' =>'dropdown'],
-            'template'=>'<a href="{url}" class="href_class">{label}</a>',
-            'items' =>[ ['label' => 'Venta Encabezado', 'url' => ['/ventas-encabezado']],
-                        ['label' => 'Ventas Detalle', 'url' => ['/ventas-detalle']],  
-                        ],
-            ];  
-            
+        {   
             //titulo de menu con opcion, se agrega el menu
             $menuItems[] = ['label' => 'Pagos', 'url' => ['/site/index'],
                 'options' =>['class' =>'dropdown'],

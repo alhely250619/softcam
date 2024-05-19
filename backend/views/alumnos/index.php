@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var app\models\AlumnosSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Crear Alumnos';
+$this->title = 'Lista de Alumnos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="alumnos-index">
@@ -18,7 +18,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Regitrar Alumnos', ['create'], ['class' => 'btn btn-success']) ?>
+       <!-- <?= Html::a('Regitrar Alumnos', ['create'], ['class' => 'btn btn-primary']) ?> -->
+       <?= Html::a('Registrar Alumnos', ['create'], ['class' => 'btn btn-primary', 'style' => 'background-color:  #3498DB; border-color:  #3498DB;']) ?>
+
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
