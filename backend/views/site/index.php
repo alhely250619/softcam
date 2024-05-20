@@ -6,10 +6,20 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron text-center bg-transparent mt-4 mb-4">
-        <h1 class="display-4"> Bienvenido!</h1>
+    <div class="jumbotron text-center bg-transparent">
+
+    <h1 class="display-4"> Bienvenidos!</h1>
+
+        <p class="lead">Instituto Tecnológico Superior de Valladolid</p>
+
+        <!-- <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p> -->
     </div>
-</br>
+    <div class="container-fluid">
+    <img src="imagenes/logotectransparente.gif" class="mx-auto d-block center-block" style="width:25%">
+    <br><br>
+    </div>
+
+    
     <div class="body-content">
 
         <div class="row text-center">

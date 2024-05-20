@@ -24,6 +24,22 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+   < <style>
+    .custom-navbar {
+        background-color: #3498DB !important; /* Color de fondo personalizado */
+    }
+
+    .custom-navbar .navbar-nav .nav-link {
+        color: white !important; /* Color de las letras */
+        font-weight: bold !important; /* Letras en negrita */
+    }
+
+    .custom-navbar .navbar-brand {
+        color: white !important; /* Color de la marca */
+        font-weight: bold !important; /* Marca en negrita */
+    }
+    </style>
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
