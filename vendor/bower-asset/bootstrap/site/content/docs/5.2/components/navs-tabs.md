@@ -235,7 +235,7 @@ If you need responsive nav variations, consider using a series of [flexbox utili
 
 {{< example >}}
 <nav class="nav nav-pills flex-column flex-sm-row">
-  <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="#">Active</a>
+  <a class="flex-sm-fill text-sm-center nav-link" aria-current="page" href="#">Active</a>
   <a class="flex-sm-fill text-sm-center nav-link" href="#">Longer nav link</a>
   <a class="flex-sm-fill text-sm-center nav-link" href="#">Link</a>
   <a class="flex-sm-fill text-sm-center nav-link disabled">Disabled</a>

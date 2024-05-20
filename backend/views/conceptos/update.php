@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Conceptos $model */
 
-$this->title = 'Update Conceptos: ' . $model->Id;
+$this->title = 'Modificar Concepto';
 $this->params['breadcrumbs'][] = ['label' => 'Conceptos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->Id, 'url' => ['view', 'Id' => $model->Id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Modificar';
 ?>
 <div class="conceptos-update">
 

@@ -329,7 +329,7 @@ EXPECTED;
                         [
                             'label' => 'Sub-dropdown',
                             'items' => [
-                                ['label' => 'Page', 'content' => 'Page', 'active' => true],
+                                ['label' => 'Page', 'content' => 'Page', 'active' => false],
                             ],
                         ],
                     ],
@@ -338,7 +338,7 @@ EXPECTED;
         ]);
 
         $expected = <<<EXPECTED
-<ul id="w0" class="nav"><li class="dropdown nav-item"><a class="dropdown-toggle nav-link active" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">Dropdown</a><div id="w1" class="dropdown-menu"><div class="dropdown active" aria-expanded="false">
+<ul id="w0" class="nav"><li class="dropdown nav-item"><a class="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">Dropdown</a><div id="w1" class="dropdown-menu"><div class="dropdown" aria-expanded="false">
 <a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" role="button">Sub-dropdown</a>
 <div id="w2" class="dropdown-submenu dropdown-menu"><h6 class="dropdown-header">Page</h6></div>
 </div></div></li></ul>

@@ -23,13 +23,8 @@ $query = (new Query())
 
 // Ejecutar la consulta y obtener los datos
 $data = $query->all();
-
 // Crear un array de salida con los IDs como valor y las fechas como etiquetas
-$out = [];
-$out[NULL]  = 'Seleccione alumno';
-foreach ($data as $d) {
-    $out[$d['id']]  = $d['matricula'] . ' - '.$d['apellido'].' '.$d['nombre'];
-}
+$out = $data;
 
 // Consultas para traer estatus
 $query = (new Query())
@@ -46,12 +41,16 @@ foreach ($data as $d) {
 }
 
 ?>
-
 <div class="ventas-encabezado-form">
     
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'Alumnos_Id')->dropDownList($out, ['id' => 'alumnos-encabezado']) ?>
+    <div class="site-search">
+        <?= $form->field($model, 'Alumnos_Id')->textInput(['class'=>'d-none','id' => 'alumnosselect']) ?>
+        <input type="text" class="form-control" name="alumnos-encabezado" id="alumnos-encabezado" list="suggestions">
+        <script>
+        </script>
+    </div>
 
     <?= $form->field($model, 'EstatusEncabezado_Id')->dropDownList($outEncabezado, ['id' => 'estatus-encabezado']) ?>
 

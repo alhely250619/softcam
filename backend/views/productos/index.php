@@ -16,10 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="productos-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Productos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Productos', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

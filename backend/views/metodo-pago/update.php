@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\MetodoPago $model */
 
-$this->title = 'Update Metodo Pago: ' . $model->Id;
+$this->title = 'Modificar Metodo Pago';
 $this->params['breadcrumbs'][] = ['label' => 'Metodo Pagos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->Id, 'url' => ['view', 'Id' => $model->Id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Modificar';
 ?>
 <div class="metodo-pago-update">
 

@@ -9,6 +9,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\VentasDetalle;
 use app\models\PAgos;
+use yii\db\Query;
+use yii\web\Response;
 use Yii;
 /**
  * VentasEncabezadoController implements the CRUD actions for VentasEncabezado model.
@@ -148,6 +150,49 @@ class VentasEncabezadoController extends Controller
             'detalleModel' => $detalleModel, // Pasar el modelo de detalle a la vista
         ]);
 
+    }
+    public function actionUserList($q = null)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $query = (new Query())
+            ->select(['alumnos.id', 'alumnos.nombre', 'alumnos.apellido', 'alumnos.matricula'])
+            ->from('ventasencabezado')
+            ->join('RIGHT JOIN', 'alumnos', 'alumnos.id = ventasencabezado.alumnos_id')
+            ->where(['like', 'alumnos.matricula', $q])
+            ->orWhere(['like', 'alumnos.apellido', $q])
+            ->orWhere(['like', 'alumnos.nombre', $q])
+            ->limit(10)
+            ->all();
+
+        $suggestions = [];
+        foreach ($query as $row) {
+            $suggestions[] = $row['matricula'] . ' - ' . $row['apellido'] . ' ' . $row['nombre'];
+        }
+
+        return $suggestions;
+    }
+    public function actionBuscarID($q = null)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $query = (new Query())
+            ->select(['alumnos.id', 'alumnos.nombre', 'alumnos.apellido', 'alumnos.matricula'])
+            ->from('alumnos')
+            ->where(['like', 'alumnos.matricula', $q])
+            ->orWhere(['like', 'alumnos.apellido', $q])
+            ->orWhere(['like', 'alumnos.nombre', $q])
+            ->limit(10)
+            ->all();
+
+        $suggestions = [];
+        foreach ($query as $row) {
+            $suggestions[] = [
+                'id' => $row['id']
+            ];
+        }
+
+        return $suggestions;
     }
 
     /**
