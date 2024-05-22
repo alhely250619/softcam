@@ -13,17 +13,17 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pagos-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'Id',
-            'Monto',
-            'VentasEncabezado_Id',
-            'Conceptos_Id',
-            'FechaHora_create',
-            'MetodoPago_Id',
-            'FechaHora_update',
-        ],
-    ])?>
+<?= DetailView::widget([
+    'model' => $model,
+    'attributes' => [
+        'Id',
+        'Monto',
+        'VentasEncabezado_Id',
+        'Conceptos_Id',
+        'FechaHora_create',
+        'MetodoPago_Id',
+        'FechaHora_update',
+    ],
+    'options' => ['class' => 'custom-table'], // Agrega una clase personalizada para estilizar la tabla
+])?>
+</div>

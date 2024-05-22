@@ -49,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'FechaHora_update',
             [
                 'class' => ActionColumn::className(),
+                'template' => '{view} {update} {delete}',
                 'urlCreator' => function ($action, Pagos $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'Id' => $model->Id]);
                 }
