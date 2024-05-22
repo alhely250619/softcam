@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Tallas $model */
 
-$this->title = 'Update Tallas: ' . $model->Id;
+$this->title = 'Modificar Talla';
 $this->params['breadcrumbs'][] = ['label' => 'Tallas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->Id, 'url' => ['view', 'Id' => $model->Id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Modificar';
 ?>
 <div class="tallas-update">
 

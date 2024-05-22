@@ -22,14 +22,8 @@ $query = (new Query())
     ->join('RIGHT JOIN', 'alumnos', 'alumnos.id = ventasencabezado.alumnos_id'); 
 
 // Ejecutar la consulta y obtener los datos
-$data = $query->all();
-
+$out = $query->all();
 // Crear un array de salida con los IDs como valor y las fechas como etiquetas
-$out = [];
-$out[NULL]  = 'Seleccione alumno';
-foreach ($data as $d) {
-    $out[$d['id']]  = $d['matricula'] . ' - '.$d['apellido'].' '.$d['nombre'];
-}
 
 // Consultas para traer estatus
 $query = (new Query())
@@ -46,12 +40,53 @@ foreach ($data as $d) {
 }
 
 ?>
-
 <div class="ventas-encabezado-form">
     
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin();?>
 
-    <?= $form->field($model, 'Alumnos_Id')->dropDownList($out, ['id' => 'alumnos-encabezado']) ?>
+    <div class="site-search">
+        <?= $form->field($model, 'Alumnos_Id')->textInput(['class'=>'d-none form-control','id' => 'alumnos-encabezado']) ?>
+        <?= $form->field($model, 'Alumnos_Txt')->textInput(['class'=>'form-control','list' => 'suggestions', 'id' => 'alumno']) ?>
+        <datalist id="suggestions">
+            <?php foreach ($out as $alumno): ?>
+                <option data-id="<?= $alumno['id'] ?>" value="<?= $alumno['matricula'] . ' - '.$alumno['apellido'] . ' ' .$alumno['nombre'] ?>"></option>
+            <?php endforeach; ?>
+        </datalist>
+        <script>
+            document.getElementById('alumno').addEventListener('input', obtenerIdAlumno);
+            function obtenerIdAlumno() {
+                const input = document.getElementById('alumno');
+                const datalist = document.getElementById('suggestions');
+                const valorSeleccionado = input.value;
+                const inputId = document.getElementById('alumnos-encabezado');
+
+                // Buscar el option correspondiente en el datalist
+                const opciones = datalist.querySelectorAll('option');
+                let idAlumno = null;
+
+                opciones.forEach(option => {
+                    if (option.value === valorSeleccionado) {
+                        idAlumno = option.getAttribute('data-id');
+                    }
+                });
+
+                if (idAlumno) {
+                    inputId.value = idAlumno;
+
+                    var selectedValue2 = idAlumno;
+                    var newUrl = '<?= Url::to(['ventas-detalle/create', 'VentasEncabezado_Id' => $model->Id]) ?>&EstatusEncabezado_Id=' + estatusEncabezadoDropdown.value + '&Alumnos_Id='+selectedValue2 + '&Alumnos_Txt='+valorSeleccionado;
+                    btnAgregarDetalle.setAttribute('href', newUrl);
+
+                    <?php foreach ($model->ventasdetalles as $index => $detalleModel): ?>
+                        document.getElementById("btn-actualizar-detalle<?= $index ?>").setAttribute('href',  '<?= Url::to(['ventas-detalle/update', 'Id' => $detalleModel->Id]) ?>&EstatusEncabezado_Id=' + estatusEncabezadoDropdown.value + '&Alumnos_Id='+selectedValue2 + '&Alumnos_Txt='+valorSeleccionado);
+                        document.getElementById("btn-eliminar-detalle<?= $index ?>").setAttribute('href',  '<?= Url::to(['ventas-detalle/update', 'Id' => $detalleModel->Id]) ?>&VentasEncabezado_Id='+$detalleModel.VentasEncabezado_Id+'&EstatusEncabezado_Id=' + estatusEncabezadoDropdown.value + '&Alumnos_Id='+selectedValue2 + '&Alumnos_Txt='+valorSeleccionado);
+                    <?php endforeach; ?>
+                } else {
+                    inputId.value = '';
+                }
+            }
+        </script>
+    </div>
 
     <?= $form->field($model, 'EstatusEncabezado_Id')->dropDownList($outEncabezado, ['id' => 'estatus-encabezado']) ?>
 
@@ -89,23 +124,10 @@ foreach ($data as $d) {
                     btnAgregarDetalle.setAttribute('href', newUrl);
                     
                     <?php foreach ($model->ventasdetalles as $index => $detalleModel): ?>
-                        document.getElementById("btn-actualizar-detalle<?= $index ?>").setAttribute('href',  '<?= Url::to(['ventas-detalle/update', 'Id' => $detalleModel->Id]) ?>&EstatusEncabezado_Id=' + estatusEncabezadoDropdown.value + '&Alumnos_Id='+selectedValue2);
-                        document.getElementById("btn-eliminar-detalle<?= $index ?>").setAttribute('href',  '<?= Url::to(['ventas-detalle/update', 'Id' => $detalleModel->Id]) ?>&VentasEncabezado_Id='+$detalleModel.VentasEncabezado_Id+'&EstatusEncabezado_Id=' + estatusEncabezadoDropdown.value + '&Alumnos_Id='+selectedValue2);
+                        document.getElementById("btn-actualizar-detalle<?= $index ?>").setAttribute('href',  '<?= Url::to(['ventas-detalle/update', 'Id' => $detalleModel->Id]) ?>&EstatusEncabezado_Id=' + estatusEncabezadoDropdown.value + '&Alumnos_Id='+alumnosEncabezadoDropdown.value);
+                        document.getElementById("btn-eliminar-detalle<?= $index ?>").setAttribute('href',  '<?= Url::to(['ventas-detalle/update', 'Id' => $detalleModel->Id]) ?>&VentasEncabezado_Id='+$detalleModel.VentasEncabezado_Id+'&EstatusEncabezado_Id=' + estatusEncabezadoDropdown.value + '&Alumnos_Id='+alumnosEncabezadoDropdown.value);
                     <?php endforeach; ?>
                 });
-
-                alumnosEncabezadoDropdown.addEventListener('change', function() {
-                    // Actualizar la URL del botón con el nuevo valor seleccionado
-                    var selectedValue2 = this.value;
-                    var newUrl = '<?= Url::to(['ventas-detalle/create', 'VentasEncabezado_Id' => $model->Id]) ?>&EstatusEncabezado_Id=' + estatusEncabezadoDropdown.value + '&Alumnos_Id='+selectedValue2;
-                    btnAgregarDetalle.setAttribute('href', newUrl);
-                    
-                    <?php foreach ($model->ventasdetalles as $index => $detalleModel): ?>
-                        document.getElementById("btn-actualizar-detalle<?= $index ?>").setAttribute('href',  '<?= Url::to(['ventas-detalle/update', 'Id' => $detalleModel->Id]) ?>&EstatusEncabezado_Id=' + estatusEncabezadoDropdown.value + '&Alumnos_Id='+selectedValue2);
-                        document.getElementById("btn-eliminar-detalle<?= $index ?>").setAttribute('href',  '<?= Url::to(['ventas-detalle/update', 'Id' => $detalleModel->Id]) ?>&VentasEncabezado_Id='+$detalleModel.VentasEncabezado_Id+'&EstatusEncabezado_Id=' + estatusEncabezadoDropdown.value + '&Alumnos_Id='+selectedValue2);
-                    <?php endforeach; ?>
-                });
-
                 document.getElementById("btn-agregar-detalle").addEventListener("click", function(event) {
                     event.preventDefault();
                     var urlFormularioDetalle = this.href;

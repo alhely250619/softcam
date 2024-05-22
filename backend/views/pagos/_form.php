@@ -55,7 +55,7 @@ foreach ($data_metodo as $d) {
     <!-- <?= $form->field($model, 'FechaHora_update')->textInput() ?> -->
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success','onclick' => 'exito()' ]) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary', 'style'=> 'background-color: #3498DB;',  'onclick' => 'exito()']) ?>
     </div>
     <script>
     function exito(){

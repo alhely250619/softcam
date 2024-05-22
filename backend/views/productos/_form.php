@@ -64,7 +64,7 @@ foreach ($data as $d) {
     <?= $form->field($model, 'Genero_Id')->dropDownList($out_genero) ?>
 
     <div class="form-group">
-    <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'onclick' => 'exito()']) ?>
+    <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary', 'style'=> 'background-color: #3498DB;',  'onclick' => 'exito()']) ?>
     </div>
     <script>
     function exito(){

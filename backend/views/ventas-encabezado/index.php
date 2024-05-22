@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var backend\models\VentasEncabezadoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Listado de Ventas';
+$this->title = 'Ventas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="ventas-encabezado-index" >
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Nueva Venta', ['create'], ['class' => 'btn btn-primary']) ?>

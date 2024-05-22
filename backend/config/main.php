@@ -37,6 +37,14 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => false,
+            'showScriptName' => true,
+            'rules' => [
+                'ventas-encabezado/user-list' => 'ventas-encabezado/user-list',
+                // Otras reglas de URL
+            ],
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

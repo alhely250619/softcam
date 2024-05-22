@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Tallas $model */
 
-$this->title = 'Create Tallas';
+$this->title = 'Nueva Talla';
 $this->params['breadcrumbs'][] = ['label' => 'Tallas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

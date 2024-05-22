@@ -29,6 +29,7 @@ class Ventasencabezado extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public $Alumnos_Txt; 
     public static function tableName()
     {
         return 'ventasencabezado';
@@ -46,6 +47,7 @@ class Ventasencabezado extends \yii\db\ActiveRecord
             [['Total'], 'number'],
             [['Nota'], 'safe'],
             [['Alumnos_Id'], 'integer'],
+            [['Alumnos_Txt'], 'safe'],
             [['EstatusEncabezado_Id'], 'integer'],
             [['Alumnos_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Alumnos::class, 'targetAttribute' => ['Alumnos_Id' => 'Id']],
             [['EstatusEncabezado_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Estatusencabezado::class, 'targetAttribute' => ['EstatusEncabezado_Id' => 'Id']],
@@ -73,6 +75,7 @@ class Ventasencabezado extends \yii\db\ActiveRecord
             'Total' => 'Total',
             'Nota' => 'Nota',
             'Alumnos_Id' => 'Alumno',
+            'Alumnos_Txt' => '',
             'EstatusEncabezado_Id' => 'Estatus',
             'Fecha_update' => 'Fecha Update',
         ];
@@ -119,6 +122,11 @@ class Ventasencabezado extends \yii\db\ActiveRecord
     public static function getVentasDetalleNull()
     {
         return Ventasdetalle::find()->where(['VentasEncabezado_Id' => null])->all();
+    }
+
+    public static function getAlumnoById($Id)
+    {
+        return Alumnos::find()->where(['Id' => $Id])->one();
     }
 }
 

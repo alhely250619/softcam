@@ -24,6 +24,7 @@ use Yii;
  */
 class Pagos extends \yii\db\ActiveRecord
 {
+    public $ventaAlumno;
     /**
      * {@inheritdoc}
      */
@@ -42,6 +43,7 @@ class Pagos extends \yii\db\ActiveRecord
             [['Monto'], 'number'],
             [['VentasEncabezado_Id', 'Conceptos_Id', 'MetodoPago_Id'], 'integer'],
             [['FechaHora_create', 'FechaHora_update'], 'safe'],
+            [['ventaAlumno'], 'safe'],
             [['Conceptos_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Conceptos::class, 'targetAttribute' => ['Conceptos_Id' => 'Id']],
             [['MetodoPago_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Metodopago::class, 'targetAttribute' => ['MetodoPago_Id' => 'Id']],
             [['VentasEncabezado_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Ventasencabezado::class, 'targetAttribute' => ['VentasEncabezado_Id' => 'Id']],

@@ -24,69 +24,49 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+   < <style>
+    .custom-navbar {
+        background-color: #3498DB !important; /* Color de fondo personalizado */
+    }
+
+    .custom-navbar .navbar-nav .nav-link {
+        color: white !important; /* Color de las letras */
+        font-weight: bold !important; /* Letras en negrita */
+    }
+
+    .custom-navbar .navbar-brand {
+        color: white !important; /* Color de la marca */
+        font-weight: bold !important; /* Marca en negrita */
+    }
+    </style>
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
-<header>
+<header class="nav-disenio">
     <?php
     NavBar::begin([//PARA EL MENU
-        'brandLabel' => 'SOFTCAM',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            //'class' => 'navbar navbar-expand-md navbar-dark bg-primary fixed-top', /// cabiar color
-            //'class' => 'navbar', 'style' => 'background-color: #e3f2fd;',
-            'class' => 'navbar navbar-expand-md', 'style' => 'background-color: #01579B; position: fixed; top: 0; width: 100%;',
-
+            'class' => 'navbar navbar-dark navbar-expand-md', 'style' => 'background-color: #016cbc; position: fixed; top: 0; width: 100%;',
         ],
     ]);
-
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-        ['label' => 'Productos', 'url' => ['/productos/index']],
-        ['label' => 'Ventas', 'url' => ['/ventas-encabezado/index']],
-        ['label' => 'Pagos', 'url' => ['/pagos/index']],
-        ['label' => 'Alumnos', 'url' => ['/alumnos/index']],
-        ['label' => 'Tallas', 'url' => ['/tallas/index']],
-        ['label' => 'Conceptos de pago', 'url' => ['/conceptos/index']],
-        ['label' => 'Métodos de pago', 'url' => ['/metodo-pago/index']],
-        ['label' => 'Categoría productos', 'url' => ['/categoria-productos/index']],
-        ['label' => 'Genero de producto', 'url' => ['/genero/index']],
-    ];
     //Aqui se loguea el usuario en el backend
     if (Yii::$app->user->isGuest) {  //aqui se detecta el logueo
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     }else
-    {     
-        
-        //titulo de menu con opcion, se agrega el menu
-        $menuItems = [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            //['label' => 'Alumnos', 'url' => ['/alumnos/index']],
-            //['label' => 'Venta Encabezado', 'url' => ['/ventas-encabezado/index']],
-            //['label' => 'Venta Detalle', 'url' => ['/ventas-detalle/index']],
-        ];
+    {   
         //Aqui se loguea el usuario en el backend
         if (Yii::$app->user->isGuest) {  //aqui se detecta el logueo
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
         }else
         {
-            $menuItems[] = ['label' => 'Alumnos', 'url' => ['/site/index'],
-            'options' =>['class' =>'dropdown'],
-            'template'=>'<a href="{url}" class="href_class">{label}</a>',
-            'items' =>[ ['label' => 'Alumnos', 'url' => ['/alumnos']],  
-                        ],
-            ];  
-
-            $menuItems[] = ['label' => 'Ventas', 'url' => ['/site/index'],
-            'options' =>['class' =>'dropdown'],
-            'template'=>'<a href="{url}" class="href_class">{label}</a>',
-            'items' =>[ ['label' => 'Venta Encabezado', 'url' => ['/ventas-encabezado']],
-                        ['label' => 'Ventas Detalle', 'url' => ['/ventas-detalle']],  
-                        ],
-            ];  
+            $menuItems = [
+                ['label' => 'Home', 'url' => ['/site/index']],
+                ['label' => 'Alumnos', 'url' => ['/alumnos/index']],
+                ['label' => 'Venta', 'url' => ['/ventas-encabezado/index']],
+            ];
             
             //titulo de menu con opcion, se agrega el menu
             $menuItems[] = ['label' => 'Pagos', 'url' => ['/site/index'],
@@ -100,7 +80,7 @@ AppAsset::register($this);
                 
             $menuItems[] = ['label' => 'Productos', 'url' => ['/site/index'],
                             'options' =>['class' =>'dropdown'],
-                            'template'=>'<a href="{url}" class="href_class">{label}</a>',
+                            'template'=>'<a href="{url}" class="">{label}</a>',
                             'items' =>[ ['label' => 'Productos', 'url' => ['/productos']],
                                         ['label' => 'Tallas', 'url' => ['/tallas']],
                                         ['label' => 'Categoria de Productos', 'url' => ['/categoria-productos']],
@@ -108,32 +88,36 @@ AppAsset::register($this);
                                         ],
                             ];  
         }
-    }    
-   
+    }
+    echo '<img class= "img-logo" src="imagenes/logo-softcam.png">';
 
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
+        'options' => ['class' => 'navbar-nav me-auto'],
         'items' => $menuItems,
     ]);
+
     if (Yii::$app->user->isGuest) {
-        echo Html::tag('div',Html::a('Login',['/site/login'],['class' => ['btn btn-link login text-decoration-none']]),['class' => ['d-flex']]);
+        echo Html::tag('div', Html::a('Login', ['/site/login'], ['class' => ['btn btn-link login text-decoration-none']]), ['class' => ['d-flex']]);
     } else {
-        echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout text-decoration-none']
-            )
-            . Html::endForm();
+        echo '<li class="btn btn-outline-primary dropdown no-arrow text-white">'
+        . '<img class="img-profile rounded-circle img-small" src="imagenes/profile.png">'
+        . Html::encode(Yii::$app->user->identity->username)
+        . '</span>'
+        . Html::beginForm(['/site/logout'], 'post')
+        . Html::submitButton(
+            '<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Cerrar Sesión',
+            ['class' => 'dropdown-item']
+        )
+        . Html::endForm()
+        . '</li>';
     }
+
     NavBar::end();
     ?>
 </header>
 
-<main role="main" class="flex-shrink-0">
+<main role="main" class="flex-shrink-0 pt-3">
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
@@ -150,3 +134,17 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage();
+?>
+<style>
+    /* Estilos para el modal */
+    .img-small {
+        margin-right: 5px;
+        margin-left: -10px;
+    }
+    .img-logo {
+        width: 200px;
+        height: 50px;
+        margin-left: -5%;
+        margin-right: 1%;
+    }
+</style>
