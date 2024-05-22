@@ -11,12 +11,10 @@ $this->title = 'My Yii Application';
     <h1 class="display-4"> Bienvenidos!</h1>
 
         <p class="lead">Instituto Tecnológico Superior de Valladolid</p>
-
-        <!-- <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p> -->
     </div>
     <div class="container-fluid">
-    <img src="imagenes/logotectransparente.gif" class="mx-auto d-block center-block" style="width:25%">
-    <br><br>
+    <img src="imagenes/logotectransparente.gif" class="mx-auto d-block center-block" style="width:15%">
+    <br>
     </div>
 
     

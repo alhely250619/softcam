@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var backend\models\MetodoPagoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Metodo Pagos';
+$this->title = 'Método Pagos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="metodo-pago-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Metodo Pago', ['create'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Crear Nuevo Método', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

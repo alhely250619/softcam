@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use app\models\Alumnos;
 use app\models\VentasEncabezado;
 use backend\models\VentasEncabezadoSearch;
 use yii\web\Controller;
@@ -104,6 +105,11 @@ class VentasEncabezadoController extends Controller
             $model->Alumnos_Id = $Alumnos_Id;
         }
 
+        if ($model->Alumnos_Id > 0) {
+            $dAlumno = VentasEncabezado::getAlumnoById($model->Alumnos_Id);
+            $model->Alumnos_Txt = $dAlumno->Matricula . ' - ' . $dAlumno->Apellido . ' ' . $dAlumno->Nombre;
+        }
+
         // Renderizar la vista con los modelos
         return $this->render('create', [
             'model' => $model,
@@ -143,6 +149,10 @@ class VentasEncabezadoController extends Controller
         } else {
             $model->EstatusEncabezado_Id = $EstatusEncabezado_Id;
             $model->Alumnos_Id = $Alumnos_Id;
+        }
+        if ($model->Alumnos_Id > 0) {
+            $dAlumno = VentasEncabezado::getAlumnoById($model->Alumnos_Id);
+                $model->Alumnos_Txt = $dAlumno->Matricula . ' - ' . $dAlumno->Apellido . ' ' . $dAlumno->Nombre;
         }
         
         return $this->render('update', [
