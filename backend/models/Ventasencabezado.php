@@ -6,6 +6,8 @@ use yii\behaviors\BlameableBehavior;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 use Yii;
+use yii\db\Query;
+
 
 /**
  * This is the model class for table "ventasencabezado".
@@ -17,6 +19,7 @@ use Yii;
  * @property string $Nota
  * @property string $Estatus
  * @property int $Alumnos_Id
+ * @property string $Folio
  * * @property int $EstatusEncabezado_Id
  * @property string $Fecha_update
  *
@@ -41,9 +44,10 @@ class Ventasencabezado extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Total', 'Alumnos_Id'], 'required'],
+            [['Total', 'Alumnos_Id',], 'required'],
             [['EstatusEncabezado_Id'], 'required'],
             [['Fecha_create', 'Fecha_update'], 'safe'],
+            [['Folio'], 'safe'],
             [['Total'], 'number'],
             [['Nota'], 'safe'],
             [['Alumnos_Id'], 'integer'],
@@ -72,10 +76,11 @@ class Ventasencabezado extends \yii\db\ActiveRecord
         return [
             'Id' => 'ID',
             'Fecha_create' => 'Fecha Create',
+            'Folio'=>'Folio',
             'Total' => 'Total',
             'Nota' => 'Nota',
-            'Alumnos_Id' => 'Alumno',
-            'Alumnos_Txt' => '',
+            'Alumnos_Id' => '',
+            'Alumnos_Txt' => 'Alumno',
             'EstatusEncabezado_Id' => 'Estatus',
             'Fecha_update' => 'Fecha Update',
         ];
@@ -98,7 +103,10 @@ class Ventasencabezado extends \yii\db\ActiveRecord
      */
     public function getPagos()
     {
-        return $this->hasMany(Pagos::class, ['VentasEncabezado_Id' => 'Id']);
+        return Pagos::find()
+        ->orWhere(['VentasEncabezado_Id' => null]) // Incluir registros con VentasEncabezado_Id igual a null
+        ->orWhere(['VentasEncabezado_Id' => $this->Id]) // Incluir registros relacionados con el ID actual
+        ->all();
     }
 
     /**
@@ -113,6 +121,17 @@ class Ventasencabezado extends \yii\db\ActiveRecord
         ->orWhere(['VentasEncabezado_Id' => $this->Id]) // Incluir registros relacionados con el ID actual
         ->all();
     }
+    public static function getNextFolio()
+    {
+        $query = (new Query())
+            ->select([
+                'Folio' => 'LPAD(CAST(IFNULL(MAX(CAST(Folio AS UNSIGNED)), 0) + 1 AS CHAR), 4, \'0\')'
+            ])
+            ->from('ventasencabezado');
+
+        $result = $query->one();
+        return $result ? $result['Folio'] : null;
+    }
 
     public function getEstatusencabezado()
     {
@@ -122,6 +141,10 @@ class Ventasencabezado extends \yii\db\ActiveRecord
     public static function getVentasDetalleNull()
     {
         return Ventasdetalle::find()->where(['VentasEncabezado_Id' => null])->all();
+    }
+    public static function getPagosNull()
+    {
+        return Pagos::find()->where(['VentasEncabezado_Id' => null])->all();
     }
 
     public static function getAlumnoById($Id)

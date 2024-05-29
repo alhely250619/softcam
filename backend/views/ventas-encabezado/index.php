@@ -32,25 +32,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            'Folio',
+            'Fecha_create',
             [
-                'label' => 'Fecha Creación',
-                'value' => 'Fecha_create',
-                
+                'attribute' => 'alumnoNombre',
+                'label' => 'Alumno',
+                'value' => function ($model) {
+                    return $model->alumnos->Matricula . ' - ' . $model->alumnos->Apellido . ' ' . $model->alumnos->Nombre;
+                }
             ],
             'Total',
-            'Nota',
             [
-                'label' => 'Alumno',
-                'value' => function ($searchAlumnos) {
-                    return $searchAlumnos->alumnos->Matricula . ' - '.$searchAlumnos->alumnos->Apellido.' '.$searchAlumnos->alumnos->Nombre;
-                }
-            ],
-            [
+                'attribute' => 'estatus',
                 'label' => 'Estatus',
                 'value' => function ($searchEstatus) {
-                return $searchEstatus->estatusencabezado->Nombre;
+                    return $searchEstatus->estatusencabezado->Nombre;
                 }
             ],
+
+            'Nota',
             //'Fecha_update',
             [
                 'class' => ActionColumn::className(),

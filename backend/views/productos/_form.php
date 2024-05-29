@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 use yii\db\Query;
 use yii\helpers\Json;
 
-// Consultas para traer conceptos de pago
+// Consultas para traer categorías
 $query = (new Query())
 ->select(['CP.id', 'CP.nombre']) // La lista de columnas se pasa como un array
 ->from('productos')
@@ -18,6 +18,7 @@ $query = (new Query())
 $data = $query->all();
 // Crear un array de salida con los IDs como valor y las fechas como etiquetas
 $out = [];
+$out[NULL]  = 'Seleccione categoría';
 foreach ($data as $d) {
     $out[$d['id']]  = $d['nombre'];
 }
@@ -30,6 +31,7 @@ $query_genero = (new Query())
 $data = $query_genero->all();
 // Crear un array de salida con los IDs como valor y las fechas como etiquetas
 $out_genero = [];
+$out_genero[NULL]  = 'Seleccione género';
 foreach ($data as $d) {
     $out_genero[$d['id']]  = $d['nombre'];
 }
@@ -42,6 +44,7 @@ $query_tallas = (new Query())
 $data = $query_tallas->all();
 // Crear un array de salida con los IDs como valor y las fechas como etiquetas
 $out_tallas = [];
+$out_tallas[NULL]  = 'Seleccione talla';
 foreach ($data as $d) {
     $out_tallas[$d['id']]  = $d['nombre'];
 }

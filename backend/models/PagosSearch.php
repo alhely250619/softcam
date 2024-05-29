@@ -11,6 +11,9 @@ use app\models\Pagos;
  */
 class PagosSearch extends Pagos
 {
+    public $buscarFolios;
+    public $buscarConceptos;
+    public $buscarMetodos;
     /**
      * {@inheritdoc}
      */
@@ -19,6 +22,9 @@ class PagosSearch extends Pagos
         return [
             [['Id', 'VentasEncabezado_Id', 'Conceptos_Id', 'MetodoPago_Id'], 'integer'],
             [['Monto'], 'number'],
+            [['buscarFolios'], 'safe'],
+            [['buscarConceptos'], 'safe'],
+            [['buscarMetodos'], 'safe'],
             [['FechaHora_create', 'FechaHora_update'], 'safe'],
         ];
     }
@@ -43,6 +49,16 @@ class PagosSearch extends Pagos
     {
         $query = Pagos::find();
 
+        $query->joinWith(['ventasEncabezado' => function ($query) {
+            $query->andFilterWhere(['like', 'ventasEncabezado.Folio', $this->buscarFolios]);
+        }]);
+        $query->joinWith(['ventasEncabezado' => function ($query) {
+            $query->andFilterWhere(['like', 'ventasEncabezado.Conceptos', $this->buscarConceptos]);
+        }]);
+        $query->joinWith(['metodoPago' => function ($query) {
+            $query->andFilterWhere(['like', 'metodoPago.Nombre', $this->buscarMetodos]);
+        }]);
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -61,12 +77,16 @@ class PagosSearch extends Pagos
         $query->andFilterWhere([
             'Id' => $this->Id,
             'Monto' => $this->Monto,
-            'VentasEncabezado_Id' => $this->VentasEncabezado_Id,
             'Conceptos_Id' => $this->Conceptos_Id,
             'FechaHora_create' => $this->FechaHora_create,
             'MetodoPago_Id' => $this->MetodoPago_Id,
             'FechaHora_update' => $this->FechaHora_update,
         ]);
+        
+        // Agrega una condición para que 'VentasEncabezado_Id' no sea null
+        $query->andWhere(['IS NOT', 'VentasEncabezado_Id', null]);
+        
+        // Otros filtros y condiciones pueden ir aquí
 
         return $dataProvider;
     }

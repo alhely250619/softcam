@@ -15,9 +15,11 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
+    <?= $form->field($model, 'Folio') ?>
+
     <?= $form->field($model, 'Id') ?>
 
-    <?= $form->field($model, 'Fecha_create') ?>
+    <?= $form->field($model, 'Fecha_create')->textInput(['type' => 'Fecha creación']) ?>
 
     <?= $form->field($model, 'Total') ?>
 
@@ -25,7 +27,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Alumnos_Id') ?>
 
+    <?= $form->field($model, 'alumnoNombre') ?>
+
     <?= $form->field($model, 'EstatusEncabezado_Id') ?>
+
+    <?= $form->field($model, 'estatus') ?>
 
     <?php // echo $form->field($model, 'Fecha_update') ?>
 

@@ -21,11 +21,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'VentasEncabezado_Id') ?>
 
+    <?= $form->field($model, 'buscarFolios') ?>
+
     <?= $form->field($model, 'Conceptos_Id') ?>
 
     <?= $form->field($model, 'FechaHora_create') ?>
 
-    <?php // echo $form->field($model, 'MetodoPago_Id') ?>
+    <?= $form->field($model, 'buscarMetodos') ?>
+
+    <?php echo $form->field($model, 'MetodoPago_Id') ?>
 
     <?php // echo $form->field($model, 'FechaHora_update') ?>
 

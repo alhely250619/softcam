@@ -74,6 +74,7 @@ class VentasEncabezadoController extends Controller
     {
         $model = new VentasEncabezado();
         $detalleModel = new VentasDetalle();
+        $pagosModel = new Pagos();
 
         // Verificar si se está enviando un formulario
         if ($this->request->isPost) {
@@ -86,6 +87,12 @@ class VentasEncabezadoController extends Controller
                         $ventaDetalle->VentasEncabezado_Id = $model->Id;
                         $ventaDetalle->save(); 
                     }
+
+                    $pagosNull = VentasEncabezado::getPagosNull();
+                    foreach ($pagosNull as $pagos) {
+                        $pagos->VentasEncabezado_Id = $model->Id;
+                        $pagos->save(); 
+                    }
                     return $this->redirect(['view', 'Id' => $model->Id]);
                 }
             }
@@ -93,10 +100,14 @@ class VentasEncabezadoController extends Controller
             if ($ProcessCreate == 0) {
                 // Obtener todos los VentasDetalle con VentaEncabezado_Id igual a null
                 $ventasDetalleNull = VentasEncabezado::getVentasDetalleNull();
+                $pagosNull = VentasEncabezado::getPagosNull();
     
                 // Iterar sobre los registros y eliminarlos
                 foreach ($ventasDetalleNull as $ventaDetalle) {
                     $ventaDetalle->delete();
+                }
+                foreach ($pagosNull as $pagos) {
+                    $pagos->delete();
                 }
             }
             // Cargar valores predeterminados para el modelo de ventas encabezado
@@ -110,10 +121,14 @@ class VentasEncabezadoController extends Controller
             $model->Alumnos_Txt = $dAlumno->Matricula . ' - ' . $dAlumno->Apellido . ' ' . $dAlumno->Nombre;
         }
 
+        $dFolio = VentasEncabezado::getNextFolio();
+        $model->Folio = $dFolio;
+
         // Renderizar la vista con los modelos
         return $this->render('create', [
             'model' => $model,
             'detalleModel' => $detalleModel,
+            'pagosModel' => $pagosModel,
         ]);
     }
 
@@ -124,31 +139,41 @@ class VentasEncabezadoController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($Id, $ProcessUpdate = 0, $EstatusEncabezado_Id = NULL, $Alumnos_Id = NULL)
+    public function actionUpdate($Id, $ProcessUpdate = 0, $EstatusEncabezado_Id = NULL, $Alumnos_Id = NULL, $Pagos_Id = NULL)
     {
         $model = $this->findModel($Id);
         $detalleModel = new VentasDetalle();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             $ventasDetalleNull = VentasEncabezado::getVentasDetalleNull();
+            $pagosNull = VentasEncabezado::getPagosNull();
             foreach ($ventasDetalleNull as $ventaDetalle) {
                 $ventaDetalle->VentasEncabezado_Id = $model->Id;
                 $ventaDetalle->save(); 
+            }
+            foreach ($pagosNull as $pagos) {
+                $pagos->VentasEncabezado_Id = $model->Id;
+                $pagos->save(); 
             }
             return $this->redirect(['view', 'Id' => $model->Id]);
         }
         if ($ProcessUpdate == 0) {
             // Obtener todos los VentasDetalle con VentaEncabezado_Id igual a null
             $ventasDetalleNull = VentasEncabezado::getVentasDetalleNull();
+            $pagosNull = VentasEncabezado::getPagosNull();
 
             // Iterar sobre los registros y eliminarlos
             foreach ($ventasDetalleNull as $ventaDetalle) {
                 $ventaDetalle->delete();
             }
+            foreach ($pagosNull as $pagos) {
+                $pagos->delete();
+            }
             
         } else {
             $model->EstatusEncabezado_Id = $EstatusEncabezado_Id;
             $model->Alumnos_Id = $Alumnos_Id;
+            $model->Pagos_Id =$Pagos_Id;
         }
         if ($model->Alumnos_Id > 0) {
             $dAlumno = VentasEncabezado::getAlumnoById($model->Alumnos_Id);

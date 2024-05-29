@@ -11,6 +11,8 @@ use app\models\VentasEncabezado;
  */
 class VentasEncabezadoSearch extends VentasEncabezado
 {
+    public $alumnoNombre;
+    public $estatus;
     /**
      * {@inheritdoc}
      */
@@ -19,6 +21,9 @@ class VentasEncabezadoSearch extends VentasEncabezado
         return [
             [['Id', 'Alumnos_Id'], 'integer'],
             [['Id', 'EstatusEncabezado_Id'], 'integer'],
+            [['alumnoNombre'], 'safe'],
+            [['estatus'], 'safe'],
+            [['Folio'],'number'],
             [['Fecha_create', 'Fecha_update'], 'safe'],
             [['Total'], 'number'],
             [['Nota'], 'safe'],
@@ -45,6 +50,16 @@ class VentasEncabezadoSearch extends VentasEncabezado
     {
         $query = VentasEncabezado::find();
 
+        // Añadir relación con la tabla alumnos
+        $query->joinWith(['alumnos' => function ($query) {
+            $query->andFilterWhere(['like', 'alumnos.Nombre', $this->alumnoNombre])
+                ->orFilterWhere(['like', 'alumnos.Apellido', $this->alumnoNombre]);
+        }]);
+
+        $query->joinWith(['estatusencabezado' => function ($query) {
+            $query->andFilterWhere(['like', 'estatusencabezado.Nombre', $this->estatus]);
+        }]);
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -63,6 +78,7 @@ class VentasEncabezadoSearch extends VentasEncabezado
         $query->andFilterWhere([
             'Id' => $this->Id,
             'Fecha_create' => $this->Fecha_create,
+            'Folio'=>$this->Folio,
             'Total' => $this->Total,
             'Nota' => $this->Nota,
             'Alumnos_Id' => $this->Alumnos_Id,

@@ -22,7 +22,7 @@ $this->title = 'My Yii Application';
 
         <div class="row text-center">
             <div class="col-lg-4 mark pt-2 pb-2">
-                <a class="text-dark" style="text-decoration: none;" href="<?= \yii\helpers\Url::to(['/pagos/create']) ?>">
+                <a class="text-dark" style="text-decoration: none;" href="<?= \yii\helpers\Url::to(['/pagos/create' ,'bandera' => 1]) ?>">
                     <img src="<?= Yii::$app->request->baseUrl ?>/imagenes/credit-card.png" alt="Descripción de la imagen" class="img-fluid" width="100" height="100">
                     <h2>Nuevo Pago</h2>
                 </a>

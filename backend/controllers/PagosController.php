@@ -15,6 +15,7 @@ use kartik\mpdf\Pdf;
  */
 class PagosController extends Controller
 {	    
+    public $layout = 'blank';
     public function actionViewPdf($id)
     {
         // Obtener el modelo de pago correspondiente al ID proporcionado
@@ -75,7 +76,7 @@ class PagosController extends Controller
     {
         $searchModel = new PagosSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+        $this->layout = 'main';
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -100,17 +101,30 @@ class PagosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($bandera = 0, $VentasEncabezado_Id = NULL, $EstatusEncabezado_Id=null, $Alumnos_Id = NULL)
     {
         $model = new Pagos();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['index']);
+                if ($bandera == 0) { // Pago realizado fuera de una venta
+                    if ($model->VentasEncabezado_Id == NULL) {
+                        return $this->redirect(['ventas-encabezado/create', 'ProcessCreate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+                    } else {
+                        return $this->redirect(['ventas-encabezado/update', 'Id' => $model->VentasEncabezado_Id, 'ProcessUpdate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+                    }
+                } else {
+                    return $this->redirect(['index']);
+                }
             }
         } else {
             $model->loadDefaultValues();
+            $model->VentasEncabezado_Id = $VentasEncabezado_Id;
         }
+        if ($bandera == 1) { // Pago realizado fuera de una venta
+            $this->layout = 'main';
+        }
+        $model->bandera = $bandera;
 
         return $this->render('create', [
             'model' => $model,
@@ -124,12 +138,25 @@ class PagosController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($Id)
+    public function actionUpdate($Id, $bandera = 0, $EstatusEncabezado_Id=null, $Alumnos_Id = NULL)
     {
         $model = $this->findModel($Id);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                if ($bandera == 0) { // Pago realizado fuera de una venta
+                    if ($model->VentasEncabezado_Id == NULL) {
+                        return $this->redirect(['ventas-encabezado/create', 'ProcessCreate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+                    } else {
+                        return $this->redirect(['ventas-encabezado/update', 'Id' => $model->VentasEncabezado_Id, 'ProcessUpdate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+                    }
+                } else {
+                    return $this->redirect(['index']);
+                }
+            }
+        }
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'Id' => $model->Id]);
+        if ($bandera == 1) { // Pago realizado fuera de una venta
+            $this->layout = 'main';
         }
 
         return $this->render('update', [
@@ -144,11 +171,19 @@ class PagosController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($Id)
+    public function actionDelete($Id, $bandera = 0, $VentasEncabezado_Id = NULL, $EstatusEncabezado_Id = null, $Alumnos_Id = NULL)
     {
         $this->findModel($Id)->delete();
 
-        return $this->redirect(['index']);
+        if ($bandera == 0) {
+            if ($VentasEncabezado_Id != NULL) {
+                return $this->redirect(['ventas-encabezado/update', 'Id' => $VentasEncabezado_Id, 'ProcessUpdate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+            } else {
+                return $this->redirect(['ventas-encabezado/create', 'ProcessCreate' => 1, 'EstatusEncabezado_Id' => $EstatusEncabezado_Id, 'Alumnos_Id' => $Alumnos_Id]);
+            }
+        } else {
+            return $this->redirect(['index']);
+        }
     }
 
     /**

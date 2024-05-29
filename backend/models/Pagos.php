@@ -6,6 +6,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "pagos".
@@ -17,17 +18,18 @@ use Yii;
  * @property string $FechaHora_create
  * @property int $MetodoPago_Id
  * @property string $FechaHora_update
- *
+ * 
  * @property Conceptos $conceptos
  * @property Metodopago $metodoPago
  * @property Ventasencabezado $ventasEncabezado
  */
 class Pagos extends \yii\db\ActiveRecord
 {
-    public $ventaAlumno;
     /**
      * {@inheritdoc}
      */
+    public $VentasEncabezado_Txt;
+    public $bandera;
     public static function tableName()
     {
         return 'pagos';
@@ -39,11 +41,12 @@ class Pagos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Monto', 'VentasEncabezado_Id', 'Conceptos_Id', 'MetodoPago_Id'], 'required'],
-            [['Monto'], 'number'],
+            [['Monto', 'Conceptos_Id', 'MetodoPago_Id'], 'required'],
+            [['Monto','VentasEncabezado_Id'], 'number'],
+            [['VentasEncabezado_Txt'], 'safe'],
+            [['bandera'], 'integer'],
             [['VentasEncabezado_Id', 'Conceptos_Id', 'MetodoPago_Id'], 'integer'],
             [['FechaHora_create', 'FechaHora_update'], 'safe'],
-            [['ventaAlumno'], 'safe'],
             [['Conceptos_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Conceptos::class, 'targetAttribute' => ['Conceptos_Id' => 'Id']],
             [['MetodoPago_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Metodopago::class, 'targetAttribute' => ['MetodoPago_Id' => 'Id']],
             [['VentasEncabezado_Id'], 'exist', 'skipOnError' => true, 'targetClass' => Ventasencabezado::class, 'targetAttribute' => ['VentasEncabezado_Id' => 'Id']],
@@ -69,11 +72,13 @@ class Pagos extends \yii\db\ActiveRecord
         return [
             'Id' => 'ID',
             'Monto' => 'Monto',
-            'VentasEncabezado_Id' => 'Ventas Encabezado ID',
-            'Conceptos_Id' => 'Conceptos ID',
-            'FechaHora_create' => 'Fecha Hora Create',
-            'MetodoPago_Id' => 'Metodo Pago ID',
-            'FechaHora_update' => 'Fecha Hora Update',
+            'VentasEncabezado_Id' => '',
+            'VentasEncabezado_Txt' => 'Venta',
+            'bandera' => '',
+            'Conceptos_Id' => 'Concepto de pago:',
+            'FechaHora_create' => 'Fecha de creación:',
+            'MetodoPago_Id' => 'Metodo de Pago: ',
+            'FechaHora_update' => 'Fecha de actualización:',
         ];
     }
 
